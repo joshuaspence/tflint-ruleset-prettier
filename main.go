@@ -20,6 +20,7 @@ func main() {
 				rules.NewTerraformMapTrailingCommaRule(),
 				rules.NewTerraformListOrderRule(),
 				rules.NewTerraformVariablesOrderRule(),
+				rules.NewStyleGuideTypeVariablesExceptAnyRule(),
 			},
 		},
 	})

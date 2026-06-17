@@ -3,6 +3,7 @@ module github.com/terraform-linters/tflint-ruleset-template
 go 1.26.1
 
 require (
+	github.com/MakeNowJust/heredoc/v2 v2.0.1
 	github.com/google/go-cmp v0.7.0
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/hashicorp/hcl/v2 v2.24.0
