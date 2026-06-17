@@ -18,6 +18,8 @@ func main() {
 				rules.NewTerraformBackendTypeRule(),
 				rules.NewTerraformListsTrailingCommaRule(),
 				rules.NewTerraformMapTrailingCommaRule(),
+				rules.NewTerraformListOrderRule(),
+				rules.NewTerraformVariablesOrderRule(),
 			},
 		},
 	})
