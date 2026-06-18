@@ -3,7 +3,7 @@ package project
 import "fmt"
 
 var (
-  Version = "dev"
+	Version = "dev"
 )
 
 func ReferenceLink(name string) string {
