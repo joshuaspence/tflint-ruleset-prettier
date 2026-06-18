@@ -30,6 +30,12 @@ jobs:
         uses: 'actions/setup-go@v6.4.0'
         with:
           go-version-file: 'go.mod'
+      - name: 'Check formatting'
+        if: "matrix.os == 'ubuntu-latest'"
+        run: 'make fmt-check'
+      - name: 'Run go vet'
+        if: "matrix.os == 'ubuntu-latest'"
+        run: 'go vet ./...'
       - name: 'Run tests'
         run: 'make test'
       - name: 'Run build'

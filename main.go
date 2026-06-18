@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/terraform-linters/tflint-plugin-sdk/plugin"
-	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/joshuaspence/tflint-ruleset-prettier/rules"
+	"github.com/terraform-linters/tflint-plugin-sdk/plugin"
+	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 func main() {
