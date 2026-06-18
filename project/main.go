@@ -7,5 +7,5 @@ const Version string = "0.2.0"
 
 // ReferenceLink returns the rule reference link
 func ReferenceLink(name string) string {
-	return fmt.Sprintf("https://github.com/miztch/tflint-ruleset-style-guide/blob/v%s/docs/rules/%s.md", Version, name)
+	return fmt.Sprintf("https://github.com/joshuaspence/tflint-ruleset-prettier/blob/v%s/docs/rules/%s.md", Version, name)
 }
