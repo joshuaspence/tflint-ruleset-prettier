@@ -49,7 +49,7 @@ output "bucket_name" {
 		t.Fatalf("expected 1 issue, got %d", len(runner.Issues))
 	}
 
-	expected := `Output "bucket_name" is defined in main.tf. All outputs should be in outputs.tf for consistent file organization.`
+	expected := `Output "bucket_name" is defined in main.tf. All outputs should be in outputs.tf.`
 	if runner.Issues[0].Message != expected {
 		t.Errorf("expected message %q, got %q", expected, runner.Issues[0].Message)
 	}
