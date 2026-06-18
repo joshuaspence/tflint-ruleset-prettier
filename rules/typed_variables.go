@@ -16,16 +16,16 @@ func NewTypedVariablesRule() *TypedVariablesRule {
 	return &TypedVariablesRule{}
 }
 
-func (r *TypedVariablesRule) Name() string {                                                                              
-  return "typed_variables"                                                                                            
-}                                                                                                                       
-                                                                                                                        
-func (r *TypedVariablesRule) Enabled() bool {                                                                             
-  return true                                                                                                           
-}                                                                                                                       
-                                                                                                                        
-func (r *TypedVariablesRule) Severity() tflint.Severity {                                                                 
-  return tflint.WARNING                                                                                                 
+func (r *TypedVariablesRule) Name() string {
+	return "typed_variables"
+}
+
+func (r *TypedVariablesRule) Enabled() bool {
+	return true
+}
+
+func (r *TypedVariablesRule) Severity() tflint.Severity {
+	return tflint.WARNING
 }
 
 func (r *TypedVariablesRule) Link() string {

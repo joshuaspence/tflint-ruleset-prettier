@@ -62,7 +62,7 @@ func (r *NamingRule) Link() string {
 // Check checks whether the rule conditions are met.
 func (r *NamingRule) Check(runner tflint.Runner) error {
 	config := &eosNamingRuleConfig{
-		Level:  "warning",
+		Level: "warning",
 	}
 	if err := runner.DecodeRuleConfig(r.Name(), config); err != nil {
 		return err

@@ -63,10 +63,10 @@ func TestIndentedHeredocRule(t *testing.T) {
 		t.Fatalf("Unexpected error occurred: %s", err)
 	}
 
-  if len(runner.Issues) != expectedCount {
-    t.Errorf("Expected %d issues, got %d", expectedCount, len(runner.Issues))
-    for i, issue := range runner.Issues {
-      t.Logf("Issue %d: %s", i+1, issue.Message)
-    }
-  }
+	if len(runner.Issues) != expectedCount {
+		t.Errorf("Expected %d issues, got %d", expectedCount, len(runner.Issues))
+		for i, issue := range runner.Issues {
+			t.Logf("Issue %d: %s", i+1, issue.Message)
+		}
+	}
 }

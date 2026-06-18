@@ -18,8 +18,8 @@ type eosMetaOrderConfig struct {
 
 // eosMetaRuleConfig represents the configuration for the MetaRule.
 type eosMetaRuleConfig struct {
-	Level         string               `hclext:"level,optional"`
-	Order         []eosMetaOrderConfig `hclext:"order,block"`
+	Level string               `hclext:"level,optional"`
+	Order []eosMetaOrderConfig `hclext:"order,block"`
 }
 
 // MetaRule checks for meta-argument style violations.

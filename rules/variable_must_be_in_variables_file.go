@@ -18,15 +18,15 @@ func NewVariableMustBeInVariablesFileRule() *VariableMustBeInVariablesFileRule {
 }
 
 func (r *VariableMustBeInVariablesFileRule) Name() string {
-  return "variables_must_be_in_variables_file"
+	return "variables_must_be_in_variables_file"
 }
 
 func (r *VariableMustBeInVariablesFileRule) Enabled() bool {
-  return true
+	return true
 }
 
 func (r *VariableMustBeInVariablesFileRule) Severity() tflint.Severity {
-  return tflint.NOTICE
+	return tflint.NOTICE
 }
 
 func (r *VariableMustBeInVariablesFileRule) Link() string {
