@@ -2,11 +2,14 @@ package rules
 
 import (
 	"fmt"
+  "regexp"
 
 	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
+
+var KebabRegex = regexp.MustCompile(`^[a-z0-9-]+$`)
 
 type ResourceNameKebabRule struct {
   tflint.DefaultRule

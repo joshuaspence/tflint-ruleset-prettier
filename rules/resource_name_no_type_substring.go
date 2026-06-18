@@ -2,6 +2,7 @@ package rules
 
 import (
 	"fmt"
+  "strings"
 
 	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
@@ -50,7 +51,7 @@ func (r *ResourceNameNoTypeSubstringRule) Check(runner tflint.Runner) error {
 	for _, block := range content.Blocks {
 		if len(block.Labels) >= 2 {
 			resourceType := block.Labels[0]
-			typeWords := SplitWords(resourceType)
+			typeWords := splitWords(resourceType)
 
 			// Check name attribute
 			if nameAttr, exists := block.Body.Attributes["name"]; exists {
@@ -86,10 +87,35 @@ func (r *ResourceNameNoTypeSubstringRule) checkNameAttribute(runner tflint.Runne
 		return nil
 	}
 
-	nameWords := SplitWordsOnDash(nameValue) // Names only have dashes
-	if found, word := ContainsAnyWord(nameWords, typeWords); found {
+	nameWords := splitWordsOnDash(nameValue) // Names only have dashes
+	if found, word := containsAnyWord(nameWords, typeWords); found {
 		return runner.EmitIssue(r, fmt.Sprintf("Resource %s attribute '%s' contains substring '%s' from resource type '%s'", attrName, nameValue, word, resourceType), attr.Range)
 	}
 
 	return nil
+}
+
+func containsAnyWord(haystack, needle []string) (bool, string) {
+  for _, n := range needle {
+    for _, h := range haystack {
+      if strings.EqualFold(n, h) {
+        return true, n
+      }
+    }
+  }
+  return false, ""
+}
+
+func splitWordsOnUnderscore(s string) []string {
+  return strings.Split(s, "_")
+}
+
+func splitWordsOnDash(s string) []string {
+  return strings.Split(s, "-")
+}
+
+func splitWords(s string) []string {
+  return strings.FieldsFunc(s, func(c rune) bool {
+    return c == '_' || c == '-'
+  })
 }
