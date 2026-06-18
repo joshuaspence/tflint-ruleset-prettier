@@ -9,7 +9,6 @@ require (
 	github.com/hashicorp/hcl/v2 v2.24.0
 	github.com/myerscode/tflint-ruleset-aws-meta v0.5.1
 	github.com/terraform-linters/tflint-plugin-sdk v0.25.0
-	github.com/zclconf/go-cty v1.18.1
 )
 
 require (
@@ -34,13 +33,14 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.21 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
-	github.com/myerscode/aws-meta v0.98.0 // indirect
+	github.com/myerscode/aws-meta v0.99.0 // indirect
 	github.com/oklog/run v1.2.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pterm/pterm v0.12.83 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
+	github.com/zclconf/go-cty v1.18.1 // indirect
 	golang.org/x/mod v0.36.0 // indirect
 	golang.org/x/net v0.54.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
