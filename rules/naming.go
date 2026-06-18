@@ -7,9 +7,6 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// eosNamingDefaultLimit is the default maximum length for names.
-const eosNamingDefaultLimit = 16
-
 // eosTypeEchoConfig represents the configuration for type echo checks.
 type eosTypeEchoConfig struct {
 	Enabled  *bool               `hclext:"enabled,optional"`
@@ -20,7 +17,6 @@ type eosTypeEchoConfig struct {
 // eosNamingRuleConfig represents the configuration for the NamingRule.
 type eosNamingRuleConfig struct {
 	Level    string             `hclext:"level,optional"`
-	Length   *int               `hclext:"length,optional"`
 	Shout    *bool              `hclext:"shout,optional"`
 	Snake    *bool              `hclext:"snake,optional"`
 	TypeEcho *eosTypeEchoConfig `hclext:"type_echo,block"`
@@ -66,10 +62,8 @@ func (r *NamingRule) Link() string {
 
 // Check checks whether the rule conditions are met.
 func (r *NamingRule) Check(runner tflint.Runner) error {
-	defaultLength := eosNamingDefaultLimit
 	config := &eosNamingRuleConfig{
 		Level:  "warning",
-		Length: &defaultLength,
 	}
 	if err := runner.DecodeRuleConfig(r.Name(), config); err != nil {
 		return err
@@ -78,13 +72,6 @@ func (r *NamingRule) Check(runner tflint.Runner) error {
 	ctx := eosNamingContext{rule: r, config: config}
 
 	var checks []func(tflint.Runner, eosNamingContext, hcl.Range, string, string, string)
-	length := eosNamingDefaultLimit
-	if config.Length != nil {
-		length = *config.Length
-	}
-	if length > 0 {
-		checks = append(checks, eosCheckNameLength)
-	}
 
 	if config.Shout == nil || *config.Shout {
 		checks = append(checks, eosCheckShout)

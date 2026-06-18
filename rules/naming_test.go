@@ -9,50 +9,12 @@ import (
 )
 
 func TestEosNamingRule(t *testing.T) {
-	longNameMsg := fmt.Sprintf("Avoid names longer than %d ('really_a_very_long_name' is 23).", eosNamingDefaultLimit)
-
 	cases := []struct {
 		Name     string
 		Content  string
 		Config   string
 		Expected helper.Issues
 	}{
-		{
-			Name: "length",
-			Config: heredoc.Doc(`
-				rule "naming" {
-				  enabled = true
-				  shout   = false
-				  snake   = false
-				  type_echo {
-				    enabled = false
-				  }
-				}
-			`),
-			Content: heredoc.Doc(`
-				variable "really_a_very_long_name" {}
-
-				locals {
-				  really_a_very_long_name = 1
-				}
-
-				output "really_a_very_long_name" {
-				  value = "test"
-				}
-
-				resource "aws_instance" "really_a_very_long_name" {
-				  ami = "ami-12345678"
-				}
-
-				variable "short" {}
-			`),
-			Expected: helper.Issues{
-				{Rule: NewNamingRule(), Message: longNameMsg},
-				{Rule: NewNamingRule(), Message: longNameMsg},
-				{Rule: NewNamingRule(), Message: longNameMsg},
-				{Rule: NewNamingRule(), Message: longNameMsg},
-			},
-		},
 		{
 			Name: "shout",
 			Config: heredoc.Doc(`
@@ -113,7 +75,6 @@ func TestEosNamingRule(t *testing.T) {
 			Config: heredoc.Doc(`
 				rule "naming" {
 				  enabled = true
-				  length  = -1
 				  shout   = false
 				  snake   = false
 				}
@@ -145,7 +106,6 @@ func TestEosNamingRule(t *testing.T) {
 			Config: heredoc.Doc(`
 				rule "naming" {
 				  enabled = true
-				  length  = -1
 				  shout   = false
 				  snake   = false
 				  type_echo {
