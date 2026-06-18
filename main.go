@@ -35,7 +35,6 @@ func main() {
 				rules.NewResourceNameNoTypeSubstringRule(),
 				rules.NewVariableHasTypeRule(),
 				rules.NewVariableMustBeInVariablesFileRule(),
-				rules.NewVariableRegionRule(),
 				rules.NewCommentsRule(),
 				rules.NewDeathMaskRule(),
 				rules.NewHeredocRule(),
