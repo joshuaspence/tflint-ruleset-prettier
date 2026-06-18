@@ -97,7 +97,7 @@ func (r *AwsServicePrincipalDNSSuffixRule) Check(runner tflint.Runner) error {
 
 		// If evaluation failed, check the raw source text directly
 		if err != nil && strings.Contains(sourceText, "dns_suffix") {
-			if matches := regexp.MustCompile(`"([a-z0-9\-]+)\.\$\{[^}]*\.dns_suffix\}"`).FindStringSubmatch(sourceText); len(matches) > 1 {
+			if matches := dnsSuffixPattern.FindStringSubmatch(sourceText); len(matches) > 1 {
 				serviceName := matches[1]
 				_ = runner.EmitIssue(
 					r,

@@ -3,7 +3,6 @@ package rules
 import (
 	"encoding/json"
 	"fmt"
-	"strings"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/joshuaspence/tflint-ruleset-prettier/rules/awsmeta"
@@ -33,7 +32,7 @@ func checkIamPolicyAttributes(runner tflint.Runner, resourceType string, check f
 		err := runner.EvaluateExpr(attr.Expr, func(policy string) error {
 			return check(policy, attr.Expr.Range())
 		}, nil)
-		if err != nil && !strings.Contains(err.Error(), "cannot convert") {
+		if err != nil && !isExpectedEvalError(err) {
 			return err
 		}
 	}

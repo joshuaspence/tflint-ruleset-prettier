@@ -98,6 +98,9 @@ func (r *AwsHardcodedIDsRule) Check(runner tflint.Runner) error {
 			return nil
 		}, nil)
 
+		// This walks every expression in the module, so most will not evaluate
+		// to a string (function calls, tuples, unknown references, etc.). Those
+		// evaluation errors are expected and ignored.
 		_ = err
 
 		return nil

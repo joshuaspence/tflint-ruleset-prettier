@@ -87,7 +87,7 @@ func (r *AwsProviderHardcodedRegionRule) Check(runner tflint.Runner) error {
 				}
 				return nil
 			}, nil)
-			if err != nil && !strings.Contains(err.Error(), "cannot convert") {
+			if err != nil && !isExpectedEvalError(err) {
 				return err
 			}
 		}
@@ -110,7 +110,7 @@ func (r *AwsProviderHardcodedRegionRule) Check(runner tflint.Runner) error {
 						}
 						return nil
 					}, nil)
-					if err != nil && !strings.Contains(err.Error(), "cannot convert") {
+					if err != nil && !isExpectedEvalError(err) {
 						return err
 					}
 				}

@@ -42,7 +42,6 @@ func (r *AwsMetaHardcodedRule) Link() string {
 }
 
 // Check checks for hardcoded regions and partitions in ARN-like string values
-// Check checks for hardcoded regions and partitions in ARN-like string values
 func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 	arnRegionPattern := awsmeta.GetARNRegionPattern()
 	arnPartitionPattern := awsmeta.GetPartitionPattern()
@@ -115,8 +114,6 @@ func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 
 			// Check for hardcoded availability zone (e.g. "eu-west-2a")
 			if azPattern.MatchString(value) {
-				// Extract the region part (everything except the last character)
-				region := value[:len(value)-1]
 				if err := runner.EmitIssue(
 					r,
 					fmt.Sprintf("Hardcoded AWS availability zone '%s' found. Consider using data.aws_availability_zones to dynamically fetch AZs for the current region", value),
@@ -124,7 +121,6 @@ func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 				); err != nil {
 					return err
 				}
-				_ = region
 				return nil
 			}
 
@@ -142,7 +138,9 @@ func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 			return nil
 		}, nil)
 
-		// Silently ignore evaluation errors
+		// This walks every expression in the module, so most will not evaluate
+		// to a string (function calls, tuples, unknown references, etc.). Those
+		// evaluation errors are expected and ignored.
 		_ = err
 
 		return nil
