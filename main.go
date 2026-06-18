@@ -18,6 +18,7 @@ func main() {
 				rules.NewTerraformListOrderRule(),
 				rules.NewTerraformVariablesOrderRule(),
 				rules.NewStyleGuideTypeVariablesExceptAnyRule(),
+				rules.NewStyleGuideTypeRepetitionRule(),
 				rules.NewAwsMetaHardcodedRule(),
 				rules.NewAwsHardcodedIDsRule(),
 				rules.NewAwsIamRolePolicyHardcodedRegionRule(),
