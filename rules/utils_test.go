@@ -6,30 +6,6 @@ import (
 	"testing"
 )
 
-func TestIsWhitespace(t *testing.T) {
-	tests := []struct {
-		input    byte
-		expected bool
-	}{
-		{' ', true},
-		{'\t', true},
-		{'\n', true},
-		{'\r', true},
-		{'a', false},
-		{'1', false},
-		{'.', false},
-		{'-', false},
-		{0, false},
-		{',', false},
-	}
-
-	for _, test := range tests {
-		if result := isWhitespace(test.input); result != test.expected {
-			t.Errorf("isWhitespace(%q) = %v; want %v", test.input, result, test.expected)
-		}
-	}
-}
-
 func TestIsFileInCurrentModule(t *testing.T) {
 	// Create a temporary directory structure for testing module contexts
 	// structure:
@@ -88,5 +64,29 @@ func TestIsFileInCurrentModule(t *testing.T) {
 	// 2b. File from parent (root) should be OUT (False)
 	if isFileInCurrentModule("../../main.tf") {
 		t.Errorf("Submodule: ../../main.tf should NOT be in current module")
+	}
+}
+
+func TestIsWhitespace(t *testing.T) {
+	tests := []struct {
+		input    byte
+		expected bool
+	}{
+		{' ', true},
+		{'\t', true},
+		{'\n', true},
+		{'\r', true},
+		{'a', false},
+		{'1', false},
+		{'.', false},
+		{'-', false},
+		{0, false},
+		{',', false},
+	}
+
+	for _, test := range tests {
+		if result := isWhitespace(test.input); result != test.expected {
+			t.Errorf("isWhitespace(%q) = %v; want %v", test.input, result, test.expected)
+		}
 	}
 }
