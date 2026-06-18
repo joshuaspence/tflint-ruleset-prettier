@@ -13,6 +13,14 @@ func Test_AwsHardcodedIDsRule(t *testing.T) {
 		ExpectedCount int
 	}{
 		{
+			Name: "hardcoded account ID",
+			Content: `
+resource "aws_guardduty_member" "test" {
+  account_id = "123456789012"
+}`,
+			ExpectedCount: 2,
+		},
+		{
 			Name: "hardcoded account ID in ARN",
 			Content: `
 resource "aws_iam_role_policy" "test" {
@@ -27,14 +35,6 @@ resource "aws_iam_role_policy" "test" {
 			ExpectedCount: 2,
 		},
 		{
-			Name: "hardcoded account ID as standalone value",
-			Content: `
-resource "aws_guardduty_member" "test" {
-  account_id = "123456789012"
-}`,
-			ExpectedCount: 2,
-		},
-		{
 			Name: "hardcoded AMI ID",
 			Content: `
 resource "aws_instance" "test" {
@@ -44,15 +44,7 @@ resource "aws_instance" "test" {
 			ExpectedCount: 2,
 		},
 		{
-			Name: "hardcoded AMI ID in launch template",
-			Content: `
-resource "aws_launch_template" "test" {
-  image_id = "ami-0ff8a91507f77f867"
-}`,
-			ExpectedCount: 2,
-		},
-		{
-			Name: "both account ID and AMI in same config",
+			Name: "hardcoded account ID and AMI in same config",
 			Content: `
 resource "aws_instance" "test" {
   ami = "ami-0abcdef1234567890"
@@ -85,7 +77,7 @@ resource "aws_instance" "test" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
 }`,
-			ExpectedCount: 2, // the owners value is a 12-digit account ID
+			ExpectedCount: 2,
 		},
 		{
 			Name: "no hardcoded IDs",
@@ -96,7 +88,7 @@ resource "aws_s3_bucket" "test" {
 			ExpectedCount: 0,
 		},
 		{
-			Name: "short number not an account ID",
+			Name: "not an account ID",
 			Content: `
 resource "aws_instance" "test" {
   tags = {

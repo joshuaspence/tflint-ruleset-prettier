@@ -6,7 +6,7 @@ import (
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/joshuaspence/tflint-ruleset-prettier/project"
-  "github.com/myerscode/tflint-ruleset-aws-meta/rules/awsmeta"
+	"github.com/myerscode/tflint-ruleset-aws-meta/rules/awsmeta"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
