@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_DaveListAlphabeticalOrder_NotConfigured(t *testing.T) {
+func Test_ListAlphabeticalOrder_NotConfigured(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 
 	runner := helper.TestRunner(t, map[string]string{
@@ -26,7 +26,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_SortedSingleLine(t *testing.T) {
+func Test_ListAlphabeticalOrder_SortedSingleLine(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -47,7 +47,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_UnsortedSingleLineWithFix(t *testing.T) {
+func Test_ListAlphabeticalOrder_UnsortedSingleLineWithFix(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -81,7 +81,7 @@ locals {
 	}, runner.Changes())
 }
 
-func Test_DaveListAlphabeticalOrder_VariableReferenceSkipped(t *testing.T) {
+func Test_ListAlphabeticalOrder_VariableReferenceSkipped(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -102,7 +102,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_EmptyAndSingleElement(t *testing.T) {
+func Test_ListAlphabeticalOrder_EmptyAndSingleElement(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -128,7 +128,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_AttributeNotInSetIgnored(t *testing.T) {
+func Test_ListAlphabeticalOrder_AttributeNotInSetIgnored(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -149,7 +149,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_NonListAttributeIgnored(t *testing.T) {
+func Test_ListAlphabeticalOrder_NonListAttributeIgnored(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -170,7 +170,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_DuplicatesWithFix(t *testing.T) {
+func Test_ListAlphabeticalOrder_DuplicatesWithFix(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -199,7 +199,7 @@ locals {
 	}, runner.Changes())
 }
 
-func Test_DaveListAlphabeticalOrder_CaseSensitiveDefault(t *testing.T) {
+func Test_ListAlphabeticalOrder_CaseSensitiveDefault(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -238,7 +238,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_CaseInsensitive(t *testing.T) {
+func Test_ListAlphabeticalOrder_CaseInsensitive(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 	rule.CaseInsensitive = true
@@ -278,7 +278,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_MultilineNotFixed(t *testing.T) {
+func Test_ListAlphabeticalOrder_MultilineNotFixed(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -306,7 +306,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_InlineCommentNotFixed(t *testing.T) {
+func Test_ListAlphabeticalOrder_InlineCommentNotFixed(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags"}
 
@@ -331,7 +331,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_NestedBlock(t *testing.T) {
+func Test_ListAlphabeticalOrder_NestedBlock(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"actions"}
 
@@ -359,7 +359,7 @@ resource "aws_iam_policy" "this" {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_MultipleLists(t *testing.T) {
+func Test_ListAlphabeticalOrder_MultipleLists(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 	rule.Attributes = []string{"tags", "ports"}
 
@@ -394,7 +394,7 @@ locals {
 	}
 }
 
-func Test_DaveListAlphabeticalOrder_ConfigViaTflintHcl(t *testing.T) {
+func Test_ListAlphabeticalOrder_ConfigViaTflintHcl(t *testing.T) {
 	rule := NewListAlphabeticalOrderRule()
 
 	runner := helper.TestRunner(t, map[string]string{

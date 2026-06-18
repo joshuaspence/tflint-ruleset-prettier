@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_DaveResourceNameKebab(t *testing.T) {
+func Test_ResourceNameKebab(t *testing.T) {
 	rule := NewResourceNameKebabRule()
 
 	// Test valid case - dashes only

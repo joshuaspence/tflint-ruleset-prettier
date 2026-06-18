@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_DaveResourceNameNoTypeSubstring(t *testing.T) {
+func Test_ResourceNameNoTypeSubstring(t *testing.T) {
 	rule := NewResourceNameNoTypeSubstringRule()
 
 	// Test valid case - no type substring in name

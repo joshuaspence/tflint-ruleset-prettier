@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_DavePolicyNoJsonencode(t *testing.T) {
+func Test_PolicyNoJsonencode(t *testing.T) {
 	rule := NewPolicyNoJsonencodeRule()
 
 	// Test valid case - using data source
