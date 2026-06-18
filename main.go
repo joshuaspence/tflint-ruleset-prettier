@@ -16,7 +16,6 @@ func main() {
 			Rules: []tflint.Rule{
 				rules.NewListsTrailingCommaRule(),
 				rules.NewMapTrailingCommaRule(),
-				rules.NewListOrderRule(),
 				rules.NewVariablesOrderRule(),
 				rules.NewTypeVariablesExceptAnyRule(),
 				rules.NewTypeRepetitionRule(),
@@ -34,7 +33,6 @@ func main() {
 				rules.NewOutputMustBeInOutputsFileRule(),
 				rules.NewResourceNameKebabRule(),
 				rules.NewResourceNameNoTypeSubstringRule(),
-				rules.NewVariableAlphabeticalOrderRule(),
 				rules.NewVariableHasTypeRule(),
 				rules.NewVariableMustBeInVariablesFileRule(),
 				rules.NewVariableRegionRule(),
