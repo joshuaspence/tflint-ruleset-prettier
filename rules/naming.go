@@ -17,7 +17,6 @@ type eosTypeEchoConfig struct {
 // eosNamingRuleConfig represents the configuration for the NamingRule.
 type eosNamingRuleConfig struct {
 	Level    string             `hclext:"level,optional"`
-	Shout    *bool              `hclext:"shout,optional"`
 	Snake    *bool              `hclext:"snake,optional"`
 	TypeEcho *eosTypeEchoConfig `hclext:"type_echo,block"`
 }
@@ -72,10 +71,6 @@ func (r *NamingRule) Check(runner tflint.Runner) error {
 	ctx := eosNamingContext{rule: r, config: config}
 
 	var checks []func(tflint.Runner, eosNamingContext, hcl.Range, string, string, string)
-
-	if config.Shout == nil || *config.Shout {
-		checks = append(checks, eosCheckShout)
-	}
 
 	if config.Snake == nil || *config.Snake {
 		checks = append(checks, eosCheckSnake)

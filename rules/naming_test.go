@@ -16,41 +16,10 @@ func TestEosNamingRule(t *testing.T) {
 		Expected helper.Issues
 	}{
 		{
-			Name: "shout",
-			Config: heredoc.Doc(`
-				rule "naming" {
-				  enabled = true
-				  snake   = false
-				  type_echo {
-				    enabled = false
-				  }
-				}
-			`),
-			Content: heredoc.Doc(`
-				variable "SHOUT" {}
-
-				locals {
-				  SHOUT = 1
-				}
-
-				output "SHOUT" {
-				  value = 1
-				}
-
-				variable "no_shout" {}
-			`),
-			Expected: helper.Issues{
-				{Rule: NewNamingRule(), Message: "Avoid SHOUTED names (SHOUT)"},
-				{Rule: NewNamingRule(), Message: "Avoid SHOUTED names (SHOUT)"},
-				{Rule: NewNamingRule(), Message: "Avoid SHOUTED names (SHOUT)"},
-			},
-		},
-		{
 			Name: "snake",
 			Config: heredoc.Doc(`
 				rule "naming" {
 				  enabled = true
-				  shout   = false
 				  type_echo {
 				    enabled = false
 				  }
@@ -75,7 +44,6 @@ func TestEosNamingRule(t *testing.T) {
 			Config: heredoc.Doc(`
 				rule "naming" {
 				  enabled = true
-				  shout   = false
 				  snake   = false
 				}
 			`),
@@ -106,7 +74,6 @@ func TestEosNamingRule(t *testing.T) {
 			Config: heredoc.Doc(`
 				rule "naming" {
 				  enabled = true
-				  shout   = false
 				  snake   = false
 				  type_echo {
 				    synonyms = {
