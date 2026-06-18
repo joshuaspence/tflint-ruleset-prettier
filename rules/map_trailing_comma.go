@@ -7,48 +7,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// MapTrailingCommaRule checks whether maps have consistent trailing commas
 type MapTrailingCommaRule struct {
 	tflint.DefaultRule
-	Config *MapTrailingCommaRuleConfig
 }
 
-type MapTrailingCommaRuleConfig struct {
-	Style string `hclext:"style,optional"`
-}
-
-// NewMapTrailingCommaRule returns a new rule
 func NewMapTrailingCommaRule() *MapTrailingCommaRule {
 	return &MapTrailingCommaRule{}
 }
 
-// Name returns the rule name
 func (r *MapTrailingCommaRule) Name() string {
 	return "map_trailing_comma"
 }
 
-// Enabled returns whether the rule is enabled by default
 func (r *MapTrailingCommaRule) Enabled() bool {
 	return true
 }
 
-// Severity returns the rule severity
 func (r *MapTrailingCommaRule) Severity() tflint.Severity {
-	return tflint.WARNING
+	return tflint.NOTICE
 }
 
-// Link returns the rule reference link
 func (r *MapTrailingCommaRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks whether maps have consistent trailing commas
 func (r *MapTrailingCommaRule) Check(runner tflint.Runner) error {
-	config := &MapTrailingCommaRuleConfig{Style: "match"}
-	if err := runner.DecodeRuleConfig(r.Name(), config); err != nil {
-		return err
-	}
-
 	files, err := runner.GetFiles()
 	if err != nil {
 		return err
@@ -87,41 +70,46 @@ func (r *MapTrailingCommaRule) Check(runner tflint.Runner) error {
 				}
 			}
 
-			var wantComma bool
-			var message string
-
-			switch config.Style {
-			case "all":
-				wantComma = true
-				message = "all: should have comma"
-			case "none":
-				wantComma = false
-				message = "none: should not have comma"
-			case "match":
-				if len(itemsWithComma) == 0 || len(itemsWithoutComma) == 0 {
-					return nil
+  		for _, i := range itemsWithComma {
+				// If the next item is on the same line, the comma is a separator and cannot be removed
+				if i+1 < len(expr.Items) {
+					currentEndLine := expr.Items[i].ValueExpr.Range().End.Line
+					nextStartLine := expr.Items[i+1].KeyExpr.Range().Start.Line
+					if currentEndLine == nextStartLine {
+						continue
+					}
 				}
 
-				if len(itemsWithComma) >= len(itemsWithoutComma) {
-					wantComma = true
-					message = "match: majority have comma"
-				} else {
-					wantComma = false
-					message = "match: majority no comma"
-				}
-			default:
-				return nil
-			}
+				item := expr.Items[i]
+				startPos := item.ValueExpr.Range().End
+				curr := startPos.Byte
 
-			if wantComma {
-				for _, i := range itemsWithoutComma {
-					item := expr.Items[i]
+				for curr < fileLength && isWhitespace(file.Bytes[curr]) {
+					if file.Bytes[curr] == '\n' {
+						startPos.Line++
+						startPos.Column = 1
+					} else {
+						startPos.Column++
+					}
+					startPos.Byte++
+					curr++
+				}
+
+				if curr < fileLength && file.Bytes[curr] == ',' {
+					endPos := startPos
+					endPos.Column++
+					endPos.Byte++
+
 					if err := runner.EmitIssueWithFix(
 						r,
-						message,
+						"Map values should not have trailing commas",
 						item.ValueExpr.Range(),
 						func(f tflint.Fixer) error {
-							return f.InsertTextAfter(item.ValueExpr.Range(), ",")
+							return f.Remove(hcl.Range{
+								Filename: filename,
+								Start:    startPos,
+								End:      endPos,
+							})
 						},
 					); err != nil {
 						return hcl.Diagnostics{
@@ -133,62 +121,9 @@ func (r *MapTrailingCommaRule) Check(runner tflint.Runner) error {
 						}
 					}
 				}
-			} else {
-				for _, i := range itemsWithComma {
-					// If the next item is on the same line, the comma is a separator and cannot be removed
-					if i+1 < len(expr.Items) {
-						currentEndLine := expr.Items[i].ValueExpr.Range().End.Line
-						nextStartLine := expr.Items[i+1].KeyExpr.Range().Start.Line
-						if currentEndLine == nextStartLine {
-							continue
-						}
-					}
-
-					item := expr.Items[i]
-					startPos := item.ValueExpr.Range().End
-					curr := startPos.Byte
-
-					for curr < fileLength && isWhitespace(file.Bytes[curr]) {
-						if file.Bytes[curr] == '\n' {
-							startPos.Line++
-							startPos.Column = 1
-						} else {
-							startPos.Column++
-						}
-						startPos.Byte++
-						curr++
-					}
-
-					if curr < fileLength && file.Bytes[curr] == ',' {
-						endPos := startPos
-						endPos.Column++
-						endPos.Byte++
-
-						if err := runner.EmitIssueWithFix(
-							r,
-							message,
-							item.ValueExpr.Range(),
-							func(f tflint.Fixer) error {
-								return f.Remove(hcl.Range{
-									Filename: filename,
-									Start:    startPos,
-									End:      endPos,
-								})
-							},
-						); err != nil {
-							return hcl.Diagnostics{
-								{
-									Severity: hcl.DiagError,
-									Summary:  "failed to call EmitIssueWithFix()",
-									Detail:   err.Error(),
-								},
-							}
-						}
-					}
-				}
 			}
 
-			return nil
+	  	return nil
 		})
 	}))
 

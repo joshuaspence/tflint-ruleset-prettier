@@ -7,38 +7,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// ListsTrailingCommaRule checks whether ...
-type ListsTrailingCommaRule struct {
+type ListTrailingCommaRule struct {
 	tflint.DefaultRule
 }
 
-// NewListsTrailingCommaRule returns a new rule
-func NewListsTrailingCommaRule() *ListsTrailingCommaRule {
-	return &ListsTrailingCommaRule{}
+func NewListTrailingCommaRule() *ListTrailingCommaRule {
+	return &ListTrailingCommaRule{}
 }
 
-// Name returns the rule name
-func (r *ListsTrailingCommaRule) Name() string {
-	return "lists_trailing_comma"
+func (r *ListTrailingCommaRule) Name() string {
+	return "list_trailing_comma"
 }
 
-// Enabled returns whether the rule is enabled by default
-func (r *ListsTrailingCommaRule) Enabled() bool {
+func (r *ListTrailingCommaRule) Enabled() bool {
 	return true
 }
 
-// Severity returns the rule severity
-func (r *ListsTrailingCommaRule) Severity() tflint.Severity {
-	return tflint.WARNING
+func (r *ListTrailingCommaRule) Severity() tflint.Severity {
+	return tflint.NOTICE
 }
 
-// Link returns the rule reference link
-func (r *ListsTrailingCommaRule) Link() string {
+func (r *ListTrailingCommaRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks whether ...
-func (r *ListsTrailingCommaRule) Check(runner tflint.Runner) error {
+func (r *ListTrailingCommaRule) Check(runner tflint.Runner) error {
 	files, err := runner.GetFiles()
 	if err != nil {
 		return err
@@ -61,8 +54,8 @@ func (r *ListsTrailingCommaRule) Check(runner tflint.Runner) error {
 				return nil
 			}
 
-			// Check if there's already a trailing comma after the last item
-			// We need to skip whitespace and newlines to handle heredoc cases
+			// Check if there's already a trailing comma after the last item. We need to skip whitespace and newlines to 
+      // handle heredoc cases.
 			commaPos := lastItemRange.End.Byte
 
 			// Skip whitespace and newlines after the last item to look for a comma

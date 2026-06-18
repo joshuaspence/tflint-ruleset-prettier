@@ -9,6 +9,13 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
+const (
+  BlockTypeResource = "resource"
+  BlockTypeData     = "data"
+  BlockTypeModule   = "module"
+  BlockTypeVariable = "variable"
+)
+
 // TypeRepetitionRule warns when a resource's or data source's name
 // repeats part of its type
 // Example: resource "aws_iam_role" "lambda_role" → repeats "role"

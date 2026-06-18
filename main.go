@@ -14,7 +14,7 @@ func main() {
 			Name:    "prettier",
 			Version: project.Version,
 			Rules: []tflint.Rule{
-				rules.NewListsTrailingCommaRule(),
+				rules.NewListTrailingCommaRule(),
 				rules.NewMapTrailingCommaRule(),
 				rules.NewVariablesOrderRule(),
 				rules.NewTypeRepetitionRule(),
