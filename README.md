@@ -27,18 +27,18 @@ plugin "prettier" {
 | --- | --- | --- | --- | --- |
 |terraform_lists_trailing_comma|Validates that the last item in a multi-line list ends with a trailing comma|WARNING|✅||
 |terraform_map_trailing_comma|Validates that maps have consistent trailing commas|WARNING|✅||
-|terraform_list_order|Validates that list items are sorted alphabetically|NOTICE|✅||
-|terraform_variables_order|Validates that variable blocks are sorted alphabetically|NOTICE|✅||
-|style_guide_typed_variables_except_any|Validates that variables do not use `any` as their type, including inside composite types|WARNING|✅||
-|aws_meta_hardcoded|Validates that there are no hardcoded AWS regions or partitions in ARN values across all resource types|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_meta_hardcoded)|
-|aws_hardcoded_ids|Validates that there are no hardcoded AWS account IDs or AMI IDs|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_hardcoded_ids)|
-|aws_iam_role_policy_hardcoded_region|Validates that there are no hardcoded AWS regions in IAM role policy documents|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_iam_role_policy_hardcoded_region)|
-|aws_iam_role_policy_hardcoded_partition|Validates that there are no hardcoded AWS partitions in IAM role policy documents|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_iam_role_policy_hardcoded_partition)|
-|aws_iam_policy_hardcoded_region|Validates that there are no hardcoded AWS regions in IAM policy documents|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_iam_policy_hardcoded_region)|
-|aws_iam_policy_hardcoded_partition|Validates that there are no hardcoded AWS partitions in IAM policy documents|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_iam_policy_hardcoded_partition)|
-|aws_provider_hardcoded_region|Validates that there are no hardcoded AWS regions in provider configuration|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_provider_hardcoded_region)|
-|aws_service_principal_hardcoded|Validates that service principals don't use hardcoded DNS suffixes (e.g., amazonaws.com)|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_service_principal_hardcoded)|
-|aws_service_principal_dns_suffix|Validates that service principals don't use dns_suffix interpolation|WARNING|✅|[docs](https://myerscode.github.io/tflint-ruleset-aws-meta/rules/aws_service_principal_dns_suffix)|
+|terraform_list_order|Validates that list items are sorted alphabetically|NOTICE|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/terraform_list_order.md)|
+|terraform_variables_order|Validates that variable blocks are sorted alphabetically|NOTICE|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/terraform_variables_order.md)|
+|style_guide_typed_variables_except_any|Validates that variables do not use `any` as their type, including inside composite types|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/style_guide_typed_variables_except_any.md)|
+|aws_meta_hardcoded|Validates that there are no hardcoded AWS regions or partitions in ARN values across all resource types|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_meta_hardcoded.md)|
+|aws_hardcoded_ids|Validates that there are no hardcoded AWS account IDs or AMI IDs|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_hardcoded_ids.md)|
+|aws_iam_role_policy_hardcoded_region|Validates that there are no hardcoded AWS regions in IAM role policy documents|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_iam_role_policy_hardcoded_region.md)|
+|aws_iam_role_policy_hardcoded_partition|Validates that there are no hardcoded AWS partitions in IAM role policy documents|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_iam_role_policy_hardcoded_partition.md)|
+|aws_iam_policy_hardcoded_region|Validates that there are no hardcoded AWS regions in IAM policy documents|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_iam_policy_hardcoded_region.md)|
+|aws_iam_policy_hardcoded_partition|Validates that there are no hardcoded AWS partitions in IAM policy documents|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_iam_policy_hardcoded_partition.md)|
+|aws_provider_hardcoded_region|Validates that there are no hardcoded AWS regions in provider configuration|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_provider_hardcoded_region.md)|
+|aws_service_principal_hardcoded|Validates that service principals don't use hardcoded DNS suffixes (e.g., amazonaws.com)|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_service_principal_hardcoded.md)|
+|aws_service_principal_dns_suffix|Validates that service principals don't use dns_suffix interpolation|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/aws_service_principal_dns_suffix.md)|
 
 ## Building the plugin
 
