@@ -6,6 +6,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 
@@ -46,7 +47,7 @@ func (r *TerraformVariablesOrderRule) Severity() tflint.Severity {
 
 // Link returns the rule reference link
 func (r *TerraformVariablesOrderRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks whether the variables are sorted in the expected order

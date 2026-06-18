@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/hashicorp/hcl/v2"
+	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/joshuaspence/tflint-ruleset-prettier/rules/awsmeta"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -37,7 +38,7 @@ func (r *AwsProviderHardcodedRegionRule) Severity() tflint.Severity {
 
 // Link returns the rule reference link
 func (r *AwsProviderHardcodedRegionRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks for hardcoded AWS regions in provider configuration

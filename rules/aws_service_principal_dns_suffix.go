@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/hashicorp/hcl/v2"
+	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -36,7 +37,7 @@ func (r *AwsServicePrincipalDNSSuffixRule) Severity() tflint.Severity {
 
 // Link returns the rule reference link
 func (r *AwsServicePrincipalDNSSuffixRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Pattern to match service names with dns_suffix interpolation

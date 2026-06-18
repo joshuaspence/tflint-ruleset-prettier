@@ -3,6 +3,7 @@ package rules
 import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -33,7 +34,7 @@ func (r *TerraformListsTrailingCommaRule) Severity() tflint.Severity {
 
 // Link returns the rule reference link
 func (r *TerraformListsTrailingCommaRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks whether ...

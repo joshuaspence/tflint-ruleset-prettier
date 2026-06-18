@@ -1,5 +1,5 @@
 # TFLint Ruleset Prettier
-[![Build Status](https://github.com/joshuaspence/tflint-ruleset-prettier/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/joshuaspence/tflint-ruleset-prettier/actions)
+[![Build Status](https://github.com/joshuaspence/tflint-ruleset-prettier/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/joshuaspence/tflint-ruleset-prettier/actions)
 
 A TFLint ruleset that enforces formatting and style conventions for Terraform code.
 
@@ -16,7 +16,7 @@ You can install the plugin with `tflint --init`. Declare a config in `.tflint.hc
 plugin "prettier" {
   enabled = true
 
-  version = "0.1.0"
+  version = "0.2.0"
   source  = "github.com/joshuaspence/tflint-ruleset-prettier"
 }
 ```
@@ -53,8 +53,8 @@ plugin "prettier" {
 |style_guide_type_repetition|Validates that resource and data source names do not repeat a word from their type|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/style_guide_type_repetition.md)|
 |style_guide_typed_variables_except_any|Validates that variables do not use `any` as their type, including inside composite types|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/style_guide_typed_variables_except_any.md)|
 |terraform_list_order|Validates that list items are sorted alphabetically|NOTICE|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/terraform_list_order.md)|
-|terraform_lists_trailing_comma|Validates that the last item in a multi-line list ends with a trailing comma|WARNING|✅||
-|terraform_map_trailing_comma|Validates that maps have consistent trailing commas|WARNING|✅||
+|terraform_lists_trailing_comma|Validates that the last item in a multi-line list ends with a trailing comma|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/terraform_lists_trailing_comma.md)|
+|terraform_map_trailing_comma|Validates that maps have consistent trailing commas|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/terraform_map_trailing_comma.md)|
 |terraform_variables_order|Validates that variable blocks are sorted alphabetically|NOTICE|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/terraform_variables_order.md)|
 
 ## Building the plugin

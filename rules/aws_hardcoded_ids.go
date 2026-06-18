@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/hcl/v2"
+	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/joshuaspence/tflint-ruleset-prettier/rules/awsmeta"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
@@ -35,7 +36,7 @@ func (r *AwsHardcodedIDsRule) Severity() tflint.Severity {
 
 // Link returns the rule reference link
 func (r *AwsHardcodedIDsRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks for hardcoded AWS account IDs and AMI IDs

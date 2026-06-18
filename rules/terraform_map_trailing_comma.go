@@ -3,6 +3,7 @@ package rules
 import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -38,7 +39,7 @@ func (r *TerraformMapTrailingCommaRule) Severity() tflint.Severity {
 
 // Link returns the rule reference link
 func (r *TerraformMapTrailingCommaRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks whether maps have consistent trailing commas
