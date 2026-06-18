@@ -30,21 +30,21 @@ Warning: Using 'any' as variable type should be avoided (style_guide_typed_varia
   on test.tf line 2:
    2:   type        = any
 
-Reference: https://github.com/miztch/tflint-ruleset-style-guide/blob/v0.1.0/docs/rules/style_guide_typed_variables_except_any.md
+Reference: https://github.com/miztch/tflint-ruleset-style-guide/blob/v0.2.0/docs/rules/style_guide_typed_variables_except_any.md
 
 Warning: Using 'any' as variable type should be avoided (style_guide_typed_variables_except_any)
 
   on test.tf line 6:
    6:   type        = list(any)
 
-Reference: https://github.com/miztch/tflint-ruleset-style-guide/blob/v0.1.0/docs/rules/style_guide_typed_variables_except_any.md
+Reference: https://github.com/miztch/tflint-ruleset-style-guide/blob/v0.2.0/docs/rules/style_guide_typed_variables_except_any.md
 
 Warning: Using 'any' as variable type should be avoided (style_guide_typed_variables_except_any)
 
   on test.tf line 12:
   12:     value = any
 
-Reference: https://github.com/miztch/tflint-ruleset-style-guide/blob/v0.1.0/docs/rules/style_guide_typed_variables_except_any.md
+Reference: https://github.com/miztch/tflint-ruleset-style-guide/blob/v0.2.0/docs/rules/style_guide_typed_variables_except_any.md
 ```
 
 ### Why

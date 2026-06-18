@@ -1,4 +1,4 @@
-# terraform_list_order
+# terraform_variables_order
 
 Recommends alphabetical order for variables.
 Autofix requires a file to only have variable blocks. If it contains other types of blocks, the fix will not be applied.
@@ -29,9 +29,20 @@ variable "a" {
 
 Result:
 ```
-$ tflint -f compact --recursive
-2 issue(s) found:
+$ tflint --recursive
+1 issue(s) found:
 
-main.tf:2:3: Notice - List 'names' is not sorted alphabetically. Recommended order: [Alice Bob Charlie Xavier] (terraform_list_order)
-main.tf:7:5: Notice - List 'actions' is not sorted alphabetically. Recommended order: [kms:Decrypt* kms:Describe* kms:Encrypt* kms:GenerateDataKey* kms:ReEncrypt*] (terraform_list_order)
+Notice: Recommended variables order:
+variable "a" {
+  type = string
+}
+
+variable "b" {
+  type = string
+}
+ (terraform_variables_order)
+
+  on main.tf line 2:
+   2: variable "b" {
+
 ```
