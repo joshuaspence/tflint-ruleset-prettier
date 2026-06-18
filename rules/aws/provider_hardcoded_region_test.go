@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsProviderHardcodedRegionRule(t *testing.T) {
+func Test_ProviderHardcodedRegionRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
@@ -111,7 +111,7 @@ provider "aws" {
 		},
 	}
 
-	rule := NewAwsProviderHardcodedRegionRule()
+	rule := NewProviderHardcodedRegionRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

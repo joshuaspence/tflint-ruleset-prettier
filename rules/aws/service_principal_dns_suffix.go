@@ -10,33 +10,33 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-type AwsServicePrincipalDNSSuffixRule struct {
+type ServicePrincipalDNSSuffixRule struct {
 	tflint.DefaultRule
 }
 
-func NewAwsServicePrincipalDNSSuffixRule() *AwsServicePrincipalDNSSuffixRule {
-	return &AwsServicePrincipalDNSSuffixRule{}
+func NewServicePrincipalDNSSuffixRule() *ServicePrincipalDNSSuffixRule {
+	return &ServicePrincipalDNSSuffixRule{}
 }
 
-func (r *AwsServicePrincipalDNSSuffixRule) Name() string {
+func (r *ServicePrincipalDNSSuffixRule) Name() string {
 	return "aws_service_principal_dns_suffix"
 }
 
-func (r *AwsServicePrincipalDNSSuffixRule) Enabled() bool {
+func (r *ServicePrincipalDNSSuffixRule) Enabled() bool {
 	return true
 }
 
-func (r *AwsServicePrincipalDNSSuffixRule) Severity() tflint.Severity {
+func (r *ServicePrincipalDNSSuffixRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-func (r *AwsServicePrincipalDNSSuffixRule) Link() string {
+func (r *ServicePrincipalDNSSuffixRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
 var dnsSuffixPattern = regexp.MustCompile(`([a-z0-9\-]+)\.\$\{[^}]*\.dns_suffix\}`)
 
-func (r *AwsServicePrincipalDNSSuffixRule) Check(runner tflint.Runner) error {
+func (r *ServicePrincipalDNSSuffixRule) Check(runner tflint.Runner) error {
 	files, err := runner.GetFiles()
 	if err != nil {
 		return err

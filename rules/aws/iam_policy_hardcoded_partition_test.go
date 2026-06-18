@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsIamPolicyHardcodedPartitionRule(t *testing.T) {
+func Test_IamPolicyHardcodedPartitionRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
@@ -32,7 +32,7 @@ resource "aws_iam_policy" "example" {
 		},
 	}
 
-	rule := NewAwsIamPolicyHardcodedPartitionRule()
+	rule := NewIamPolicyHardcodedPartitionRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

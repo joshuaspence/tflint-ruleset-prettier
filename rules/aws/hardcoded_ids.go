@@ -9,31 +9,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-type AwsHardcodedIDsRule struct {
+type HardcodedIDsRule struct {
 	tflint.DefaultRule
 }
 
-func NewAwsHardcodedIDsRule() *AwsHardcodedIDsRule {
-	return &AwsHardcodedIDsRule{}
+func NewHardcodedIDsRule() *HardcodedIDsRule {
+	return &HardcodedIDsRule{}
 }
 
-func (r *AwsHardcodedIDsRule) Name() string {
+func (r *HardcodedIDsRule) Name() string {
 	return "aws_hardcoded_ids"
 }
 
-func (r *AwsHardcodedIDsRule) Enabled() bool {
+func (r *HardcodedIDsRule) Enabled() bool {
 	return true
 }
 
-func (r *AwsHardcodedIDsRule) Severity() tflint.Severity {
+func (r *HardcodedIDsRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-func (r *AwsHardcodedIDsRule) Link() string {
+func (r *HardcodedIDsRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-func (r *AwsHardcodedIDsRule) Check(runner tflint.Runner) error {
+func (r *HardcodedIDsRule) Check(runner tflint.Runner) error {
 	accountIDPattern := awsmeta.GetAccountIDPattern()
 	amiIDPattern := awsmeta.GetAMIIDPattern()
 

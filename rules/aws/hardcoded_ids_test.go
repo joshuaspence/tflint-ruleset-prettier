@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsHardcodedIDsRule(t *testing.T) {
+func Test_HardcodedIDsRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
@@ -99,7 +99,7 @@ resource "aws_instance" "test" {
 		},
 	}
 
-	rule := NewAwsHardcodedIDsRule()
+	rule := NewHardcodedIDsRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

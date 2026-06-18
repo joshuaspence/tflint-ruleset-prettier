@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsIamRolePolicyHardcodedRegionRule(t *testing.T) {
+func Test_IamRolePolicyHardcodedRegionRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
@@ -34,7 +34,7 @@ resource "aws_iam_role_policy" "example" {
 		},
 	}
 
-	rule := NewAwsIamRolePolicyHardcodedRegionRule()
+	rule := NewIamRolePolicyHardcodedRegionRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

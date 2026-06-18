@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsMetaHardcodedRule(t *testing.T) {
+func Test_MetaHardcodedRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
@@ -197,7 +197,7 @@ module "vpc" {
 		},
 	}
 
-	rule := NewAwsMetaHardcodedRule()
+	rule := NewMetaHardcodedRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

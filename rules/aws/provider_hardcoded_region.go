@@ -11,31 +11,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-type AwsProviderHardcodedRegionRule struct {
+type ProviderHardcodedRegionRule struct {
 	tflint.DefaultRule
 }
 
-func NewAwsProviderHardcodedRegionRule() *AwsProviderHardcodedRegionRule {
-	return &AwsProviderHardcodedRegionRule{}
+func NewProviderHardcodedRegionRule() *ProviderHardcodedRegionRule {
+	return &ProviderHardcodedRegionRule{}
 }
 
-func (r *AwsProviderHardcodedRegionRule) Name() string {
+func (r *ProviderHardcodedRegionRule) Name() string {
 	return "aws_provider_hardcoded_region"
 }
 
-func (r *AwsProviderHardcodedRegionRule) Enabled() bool {
+func (r *ProviderHardcodedRegionRule) Enabled() bool {
 	return true
 }
 
-func (r *AwsProviderHardcodedRegionRule) Severity() tflint.Severity {
+func (r *ProviderHardcodedRegionRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-func (r *AwsProviderHardcodedRegionRule) Link() string {
+func (r *ProviderHardcodedRegionRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-func (r *AwsProviderHardcodedRegionRule) Check(runner tflint.Runner) error {
+func (r *ProviderHardcodedRegionRule) Check(runner tflint.Runner) error {
 	regionPattern := awsmeta.GetRegionPattern()
 	arnRegionPattern := awsmeta.GetARNRegionPattern()
 

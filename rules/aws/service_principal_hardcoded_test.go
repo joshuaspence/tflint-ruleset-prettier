@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsServicePrincipalHardcodedRule(t *testing.T) {
+func Test_ServicePrincipalHardcodedRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
@@ -136,7 +136,7 @@ resource "aws_iam_role" "test" {
 		},
 	}
 
-	rule := NewAwsServicePrincipalHardcodedRule()
+	rule := NewServicePrincipalHardcodedRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

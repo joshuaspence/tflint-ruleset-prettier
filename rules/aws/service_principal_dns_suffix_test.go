@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsServicePrincipalDNSSuffixRule(t *testing.T) {
+func Test_ServicePrincipalDNSSuffixRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
@@ -82,7 +82,7 @@ resource "aws_iam_role" "test" {
 		},
 	}
 
-	rule := NewAwsServicePrincipalDNSSuffixRule()
+	rule := NewServicePrincipalDNSSuffixRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

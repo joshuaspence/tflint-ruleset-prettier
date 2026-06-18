@@ -11,31 +11,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-type AwsPolicyNoJsonencodeRule struct {
+type PolicyNoJsonencodeRule struct {
 	tflint.DefaultRule
 }
 
-func NewAwsPolicyNoJsonencodeRule() *AwsPolicyNoJsonencodeRule {
-	return &AwsPolicyNoJsonencodeRule{}
+func NewPolicyNoJsonencodeRule() *PolicyNoJsonencodeRule {
+	return &PolicyNoJsonencodeRule{}
 }
 
-func (r *AwsPolicyNoJsonencodeRule) Name() string {
+func (r *PolicyNoJsonencodeRule) Name() string {
 	return "aws_policy_no_jsonencode"
 }
 
-func (r *AwsPolicyNoJsonencodeRule) Enabled() bool {
+func (r *PolicyNoJsonencodeRule) Enabled() bool {
 	return true
 }
 
-func (r *AwsPolicyNoJsonencodeRule) Severity() tflint.Severity {
+func (r *PolicyNoJsonencodeRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-func (r *AwsPolicyNoJsonencodeRule) Link() string {
+func (r *PolicyNoJsonencodeRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-func (r *AwsPolicyNoJsonencodeRule) Check(runner tflint.Runner) error {
+func (r *PolicyNoJsonencodeRule) Check(runner tflint.Runner) error {
 	content, err := runner.GetModuleContent(&hclext.BodySchema{
 		Blocks: []hclext.BlockSchema{
 			{Type: "resource", LabelNames: []string{"type", "name"}, Body: &hclext.BodySchema{
@@ -73,11 +73,11 @@ func (r *AwsPolicyNoJsonencodeRule) Check(runner tflint.Runner) error {
 	return nil
 }
 
-func (r *AwsPolicyNoJsonencodeRule) isPolicyAttribute(name string) bool {
+func (r *PolicyNoJsonencodeRule) isPolicyAttribute(name string) bool {
 	return name == "policy" || name == "assume_role_policy" || name == "bucket_policy" || strings.HasSuffix(name, "_policy")
 }
 
-func (r *AwsPolicyNoJsonencodeRule) containsJsonencode(expr hcl.Expression) bool {
+func (r *PolicyNoJsonencodeRule) containsJsonencode(expr hcl.Expression) bool {
 	switch e := expr.(type) {
 	case *hclsyntax.FunctionCallExpr:
 		return e.Name == "jsonencode"

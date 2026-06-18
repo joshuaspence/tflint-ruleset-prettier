@@ -6,31 +6,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-type AwsIamRolePolicyHardcodedPartitionRule struct {
+type IamRolePolicyHardcodedPartitionRule struct {
 	tflint.DefaultRule
 }
 
-func NewAwsIamRolePolicyHardcodedPartitionRule() *AwsIamRolePolicyHardcodedPartitionRule {
-	return &AwsIamRolePolicyHardcodedPartitionRule{}
+func NewIamRolePolicyHardcodedPartitionRule() *IamRolePolicyHardcodedPartitionRule {
+	return &IamRolePolicyHardcodedPartitionRule{}
 }
 
-func (r *AwsIamRolePolicyHardcodedPartitionRule) Name() string {
+func (r *IamRolePolicyHardcodedPartitionRule) Name() string {
 	return "aws_iam_role_policy_hardcoded_partition"
 }
 
-func (r *AwsIamRolePolicyHardcodedPartitionRule) Enabled() bool {
+func (r *IamRolePolicyHardcodedPartitionRule) Enabled() bool {
 	return true
 }
 
-func (r *AwsIamRolePolicyHardcodedPartitionRule) Severity() tflint.Severity {
+func (r *IamRolePolicyHardcodedPartitionRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-func (r *AwsIamRolePolicyHardcodedPartitionRule) Link() string {
+func (r *IamRolePolicyHardcodedPartitionRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-func (r *AwsIamRolePolicyHardcodedPartitionRule) Check(runner tflint.Runner) error {
+func (r *IamRolePolicyHardcodedPartitionRule) Check(runner tflint.Runner) error {
 	return checkIamPolicyAttributes(runner, "aws_iam_role_policy", func(policy string, rng hcl.Range) error {
 		return checkIamPolicyForHardcodedPartitions(runner, r, "IAM role policy", policy, rng)
 	})

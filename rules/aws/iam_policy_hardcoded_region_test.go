@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsIamPolicyHardcodedRegionRule(t *testing.T) {
+func Test_IamPolicyHardcodedRegionRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
@@ -32,7 +32,7 @@ resource "aws_iam_policy" "example" {
 		},
 	}
 
-	rule := NewAwsIamPolicyHardcodedRegionRule()
+	rule := NewIamPolicyHardcodedRegionRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

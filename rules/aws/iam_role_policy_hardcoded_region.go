@@ -6,31 +6,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-type AwsIamRolePolicyHardcodedRegionRule struct {
+type IamRolePolicyHardcodedRegionRule struct {
 	tflint.DefaultRule
 }
 
-func NewAwsIamRolePolicyHardcodedRegionRule() *AwsIamRolePolicyHardcodedRegionRule {
-	return &AwsIamRolePolicyHardcodedRegionRule{}
+func NewIamRolePolicyHardcodedRegionRule() *IamRolePolicyHardcodedRegionRule {
+	return &IamRolePolicyHardcodedRegionRule{}
 }
 
-func (r *AwsIamRolePolicyHardcodedRegionRule) Name() string {
+func (r *IamRolePolicyHardcodedRegionRule) Name() string {
 	return "aws_iam_role_policy_hardcoded_region"
 }
 
-func (r *AwsIamRolePolicyHardcodedRegionRule) Enabled() bool {
+func (r *IamRolePolicyHardcodedRegionRule) Enabled() bool {
 	return true
 }
 
-func (r *AwsIamRolePolicyHardcodedRegionRule) Severity() tflint.Severity {
+func (r *IamRolePolicyHardcodedRegionRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-func (r *AwsIamRolePolicyHardcodedRegionRule) Link() string {
+func (r *IamRolePolicyHardcodedRegionRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-func (r *AwsIamRolePolicyHardcodedRegionRule) Check(runner tflint.Runner) error {
+func (r *IamRolePolicyHardcodedRegionRule) Check(runner tflint.Runner) error {
 	return checkIamPolicyAttributes(runner, "aws_iam_role_policy", func(policy string, rng hcl.Range) error {
 		return checkIamPolicyForHardcodedRegions(runner, r, "IAM role policy", policy, rng)
 	})

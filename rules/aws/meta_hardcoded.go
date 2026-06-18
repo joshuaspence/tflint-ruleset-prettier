@@ -10,31 +10,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-type AwsMetaHardcodedRule struct {
+type MetaHardcodedRule struct {
 	tflint.DefaultRule
 }
 
-func NewAwsMetaHardcodedRule() *AwsMetaHardcodedRule {
-	return &AwsMetaHardcodedRule{}
+func NewMetaHardcodedRule() *MetaHardcodedRule {
+	return &MetaHardcodedRule{}
 }
 
-func (r *AwsMetaHardcodedRule) Name() string {
+func (r *MetaHardcodedRule) Name() string {
 	return "aws_meta_hardcoded"
 }
 
-func (r *AwsMetaHardcodedRule) Enabled() bool {
+func (r *MetaHardcodedRule) Enabled() bool {
 	return true
 }
 
-func (r *AwsMetaHardcodedRule) Severity() tflint.Severity {
+func (r *MetaHardcodedRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-func (r *AwsMetaHardcodedRule) Link() string {
+func (r *MetaHardcodedRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
+func (r *MetaHardcodedRule) Check(runner tflint.Runner) error {
 	arnRegionPattern := awsmeta.GetARNRegionPattern()
 	arnPartitionPattern := awsmeta.GetPartitionPattern()
 	azPattern := awsmeta.GetAvailabilityZonePattern()

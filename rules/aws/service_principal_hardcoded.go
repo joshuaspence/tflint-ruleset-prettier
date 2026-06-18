@@ -10,31 +10,31 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-type AwsServicePrincipalHardcodedRule struct {
+type ServicePrincipalHardcodedRule struct {
 	tflint.DefaultRule
 }
 
-func NewAwsServicePrincipalHardcodedRule() *AwsServicePrincipalHardcodedRule {
-	return &AwsServicePrincipalHardcodedRule{}
+func NewServicePrincipalHardcodedRule() *ServicePrincipalHardcodedRule {
+	return &ServicePrincipalHardcodedRule{}
 }
 
-func (r *AwsServicePrincipalHardcodedRule) Name() string {
+func (r *ServicePrincipalHardcodedRule) Name() string {
 	return "aws_service_principal_hardcoded"
 }
 
-func (r *AwsServicePrincipalHardcodedRule) Enabled() bool {
+func (r *ServicePrincipalHardcodedRule) Enabled() bool {
 	return true
 }
 
-func (r *AwsServicePrincipalHardcodedRule) Severity() tflint.Severity {
+func (r *ServicePrincipalHardcodedRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-func (r *AwsServicePrincipalHardcodedRule) Link() string {
+func (r *ServicePrincipalHardcodedRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-func (r *AwsServicePrincipalHardcodedRule) Check(runner tflint.Runner) error {
+func (r *ServicePrincipalHardcodedRule) Check(runner tflint.Runner) error {
 	dnsSuffixPattern := awsmeta.GetDNSSuffixPattern()
 
 	files, err := runner.GetFiles()
