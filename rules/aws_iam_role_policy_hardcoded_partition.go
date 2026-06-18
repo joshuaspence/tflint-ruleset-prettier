@@ -1,14 +1,8 @@
 package rules
 
 import (
-	"encoding/json"
-	"fmt"
-	"regexp"
-	"strings"
-
 	"github.com/hashicorp/hcl/v2"
-	"github.com/joshuaspence/tflint-ruleset-prettier/rules/awsmeta"
-	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -39,90 +33,12 @@ func (r *AwsIamRolePolicyHardcodedPartitionRule) Severity() tflint.Severity {
 
 // Link returns the rule reference link
 func (r *AwsIamRolePolicyHardcodedPartitionRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks for hardcoded AWS partitions in IAM role policies
 func (r *AwsIamRolePolicyHardcodedPartitionRule) Check(runner tflint.Runner) error {
-	resources, err := runner.GetResourceContent("aws_iam_role_policy", &hclext.BodySchema{
-		Attributes: []hclext.AttributeSchema{
-			{Name: "policy"},
-		},
-	}, nil)
-	if err != nil {
-		return err
-	}
-
-	for _, resource := range resources.Blocks {
-		if attr, exists := resource.Body.Attributes["policy"]; exists {
-			err := runner.EvaluateExpr(attr.Expr, func(policy string) error {
-				return r.checkPolicyForHardcodedPartitions(runner, policy, attr.Expr.Range())
-			}, nil)
-			if err != nil && !strings.Contains(err.Error(), "cannot convert") {
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-func (r *AwsIamRolePolicyHardcodedPartitionRule) checkPolicyForHardcodedPartitions(runner tflint.Runner, policy string, rng hcl.Range) error {
-	// Get dynamic pattern from aws-meta package
-	arnPartitionPattern := awsmeta.GetPartitionPattern()
-
-	// Try to parse as JSON to check structured policy
-	var policyDoc map[string]interface{}
-	if err := json.Unmarshal([]byte(policy), &policyDoc); err == nil {
-		// Check structured policy document
-		if err := r.checkPolicyDocument(runner, policyDoc, rng, arnPartitionPattern); err != nil {
-			return err
-		}
-	} else {
-		// Check raw string for ARN patterns
-		if matches := arnPartitionPattern.FindAllStringSubmatch(policy, -1); len(matches) > 0 {
-			for _, match := range matches {
-				if len(match) > 1 {
-					partition := match[1]
-					if err := runner.EmitIssue(
-						r,
-						fmt.Sprintf("Hardcoded AWS partition '%s' found in ARN within IAM role policy. Consider using data.aws_partition.current.partition", partition),
-						rng,
-					); err != nil {
-						return err
-					}
-				}
-			}
-		}
-	}
-
-	return nil
-}
-
-func (r *AwsIamRolePolicyHardcodedPartitionRule) checkPolicyDocument(runner tflint.Runner, doc map[string]interface{}, rng hcl.Range, arnPartitionPattern *regexp.Regexp) error {
-	// Convert back to string to search for patterns
-	docBytes, err := json.Marshal(doc)
-	if err != nil {
-		return nil // Skip if we can't marshal back
-	}
-
-	docString := string(docBytes)
-
-	// Check for hardcoded partitions in ARNs within the policy document
-	if matches := arnPartitionPattern.FindAllStringSubmatch(docString, -1); len(matches) > 0 {
-		for _, match := range matches {
-			if len(match) > 1 {
-				partition := match[1]
-				if err := runner.EmitIssue(
-					r,
-					fmt.Sprintf("Hardcoded AWS partition '%s' found in ARN within IAM role policy document. Consider using data.aws_partition.current.partition", partition),
-					rng,
-				); err != nil {
-					return err
-				}
-			}
-		}
-	}
-
-	return nil
+	return checkIamPolicyAttributes(runner, "aws_iam_role_policy", func(policy string, rng hcl.Range) error {
+		return checkIamPolicyForHardcodedPartitions(runner, r, "IAM role policy", policy, rng)
+	})
 }

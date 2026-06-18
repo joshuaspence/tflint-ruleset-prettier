@@ -1,14 +1,8 @@
 package rules
 
 import (
-	"encoding/json"
-	"fmt"
-	"regexp"
-	"strings"
-
 	"github.com/hashicorp/hcl/v2"
-	"github.com/joshuaspence/tflint-ruleset-prettier/rules/awsmeta"
-	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -39,115 +33,12 @@ func (r *AwsIamPolicyHardcodedRegionRule) Severity() tflint.Severity {
 
 // Link returns the rule reference link
 func (r *AwsIamPolicyHardcodedRegionRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks for hardcoded AWS regions in IAM policies
 func (r *AwsIamPolicyHardcodedRegionRule) Check(runner tflint.Runner) error {
-	resources, err := runner.GetResourceContent("aws_iam_policy", &hclext.BodySchema{
-		Attributes: []hclext.AttributeSchema{
-			{Name: "policy"},
-		},
-	}, nil)
-	if err != nil {
-		return err
-	}
-
-	for _, resource := range resources.Blocks {
-		if attr, exists := resource.Body.Attributes["policy"]; exists {
-			err := runner.EvaluateExpr(attr.Expr, func(policy string) error {
-				return r.checkPolicyForHardcodedRegions(runner, policy, attr.Expr.Range())
-			}, nil)
-			if err != nil && !strings.Contains(err.Error(), "cannot convert") {
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-func (r *AwsIamPolicyHardcodedRegionRule) checkPolicyForHardcodedRegions(runner tflint.Runner, policy string, rng hcl.Range) error {
-	// Get dynamic patterns from aws-meta package
-	regionInStringPattern := awsmeta.GetRegionInStringPattern()
-	arnRegionPattern := awsmeta.GetARNRegionPattern()
-
-	// Try to parse as JSON to check structured policy
-	var policyDoc map[string]interface{}
-	if err := json.Unmarshal([]byte(policy), &policyDoc); err == nil {
-		// Check structured policy document
-		if err := r.checkPolicyDocument(runner, policyDoc, rng, regionInStringPattern, arnRegionPattern); err != nil {
-			return err
-		}
-	} else {
-		// Check raw string for patterns
-		if matches := regionInStringPattern.FindAllString(policy, -1); len(matches) > 0 {
-			for _, match := range matches {
-				if err := runner.EmitIssue(
-					r,
-					fmt.Sprintf("Hardcoded AWS region '%s' found in IAM policy. Consider using variables or data.aws_region.current.name", match),
-					rng,
-				); err != nil {
-					return err
-				}
-			}
-		}
-
-		if matches := arnRegionPattern.FindAllStringSubmatch(policy, -1); len(matches) > 0 {
-			for _, match := range matches {
-				if len(match) > 1 {
-					region := match[1]
-					if err := runner.EmitIssue(
-						r,
-						fmt.Sprintf("Hardcoded AWS region '%s' found in ARN within IAM policy. Consider using variables or data.aws_region.current.name", region),
-						rng,
-					); err != nil {
-						return err
-					}
-				}
-			}
-		}
-	}
-
-	return nil
-}
-
-func (r *AwsIamPolicyHardcodedRegionRule) checkPolicyDocument(runner tflint.Runner, doc map[string]interface{}, rng hcl.Range, regionInStringPattern, arnRegionPattern *regexp.Regexp) error {
-	// Convert back to string to search for patterns
-	docBytes, err := json.Marshal(doc)
-	if err != nil {
-		return nil // Skip if we can't marshal back
-	}
-
-	docString := string(docBytes)
-
-	// Check for hardcoded regions in the policy document
-	if matches := regionInStringPattern.FindAllString(docString, -1); len(matches) > 0 {
-		for _, match := range matches {
-			if err := runner.EmitIssue(
-				r,
-				fmt.Sprintf("Hardcoded AWS region '%s' found in IAM policy document. Consider using variables or data.aws_region.current.name", match),
-				rng,
-			); err != nil {
-				return err
-			}
-		}
-	}
-
-	if matches := arnRegionPattern.FindAllStringSubmatch(docString, -1); len(matches) > 0 {
-		for _, match := range matches {
-			if len(match) > 1 {
-				region := match[1]
-				if err := runner.EmitIssue(
-					r,
-					fmt.Sprintf("Hardcoded AWS region '%s' found in ARN within IAM policy document. Consider using variables or data.aws_region.current.name", region),
-					rng,
-				); err != nil {
-					return err
-				}
-			}
-		}
-	}
-
-	return nil
+	return checkIamPolicyAttributes(runner, "aws_iam_policy", func(policy string, rng hcl.Range) error {
+		return checkIamPolicyForHardcodedRegions(runner, r, "IAM policy", policy, rng)
+	})
 }
