@@ -10,13 +10,23 @@ import (
 )
 
 type VariableMustBeInVariablesFileRule struct {
-	BaseRule
+	tflint.DefaultRule
 }
 
 func NewVariableMustBeInVariablesFileRule() *VariableMustBeInVariablesFileRule {
-	return &VariableMustBeInVariablesFileRule{
-		BaseRule: BaseRule{ruleName: "variable_must_be_in_variables_file"},
-	}
+	return &VariableMustBeInVariablesFileRule{}
+}
+
+func (r *VariableMustBeInVariablesFileRule) Name() string {
+  return "variables_must_be_in_variables_file"
+}
+
+func (r *HardcodedIDsRule) Enabled() bool {
+  return true
+}
+
+func (r *HardcodedIDsRule) Severity() tflint.Severity {
+  return tflint.NOTICE
 }
 
 func (r *VariableMustBeInVariablesFileRule) Link() string {

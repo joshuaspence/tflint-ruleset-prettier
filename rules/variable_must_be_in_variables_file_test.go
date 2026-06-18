@@ -6,10 +6,10 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_DaveVariableMustBeInVariablesFile(t *testing.T) {
+func Test_VariableMustBeInVariablesFile(t *testing.T) {
 	rule := NewVariableMustBeInVariablesFileRule()
 
-	// Test valid case - variable in variables.tf
+	// Test valid case - variable in `variables.tf`
 	runner := helper.TestRunner(t, map[string]string{
 		"variables.tf": `
 variable "storage_name" {
@@ -26,7 +26,7 @@ variable "storage_name" {
 		t.Errorf("expected no issues, got %d", len(runner.Issues))
 	}
 
-	// Test invalid case - variable in main.tf (only violates Rule 6)
+	// Test invalid case - variable in `main.tf`
 	runner = helper.TestRunner(t, map[string]string{
 		"main.tf": `
 variable "storage_name" {

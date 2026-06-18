@@ -66,7 +66,7 @@ func (r *VariablesOrderRule) Check(runner tflint.Runner) error {
 func (r *VariablesOrderRule) checkVariablesOrder(runner tflint.Runner, sortRequired bool, file *hcl.File) error {
 	body, ok := file.Body.(*hclsyntax.Body)
 	if !ok {
-		logger.Debug("skip terraform_variables_order check since it's not a valid hcl file")
+		logger.Debug("skip variables_order check since it's not a valid hcl file")
 		return nil
 	}
 	blocks := body.Blocks
@@ -172,7 +172,6 @@ func (r *VariablesOrderRule) forVariables(blocks hclsyntax.Blocks, action func(v
 	}
 }
 
-// Checks if all blocks are variable blocks
 func (r *VariablesOrderRule) isAllVariables(blocks hclsyntax.Blocks) bool {
 	for _, block := range blocks {
 		if block.Type != "variable" {
