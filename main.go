@@ -36,7 +36,7 @@ func main() {
 				rules.NewVariableMustBeInVariablesFileRule(),
 				rules.NewCommentsRule(),
 				rules.NewDeathMaskRule(),
-				rules.NewHeredocRule(),
+				rules.NewIndentedHeredocRule(),
 				rules.NewMetaRule(),
 				rules.NewNamingRule(),
 			},

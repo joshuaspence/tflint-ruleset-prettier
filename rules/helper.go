@@ -139,9 +139,8 @@ func eosWalkBlocks[T any](
 	return nil
 }
 
-// eosWalkTokens iterates over all files in the root module, lexes them, and
-// applies the check function to each token.
-func eosWalkTokens[T any](
+// walkTokens iterates over all files in the root module, lexes them, and applies the check function to each token.
+func walkTokens[T any](
 	runner tflint.Runner,
 	rule T,
 	checkFunc func(tflint.Runner, T, hclsyntax.Token),
