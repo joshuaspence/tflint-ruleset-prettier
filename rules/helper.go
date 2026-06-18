@@ -1,8 +1,6 @@
 package rules
 
 import (
-	"strings"
-
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -16,18 +14,6 @@ import (
 // eosBoolPtr returns a pointer to the given bool value.
 func eosBoolPtr(b bool) *bool {
 	return &b
-}
-
-// eosToSeverity converts a string level to a tflint.Severity.
-func eosToSeverity(level string) tflint.Severity {
-	switch strings.ToLower(level) {
-	case "notice":
-		return tflint.NOTICE
-	case "warning":
-		return tflint.WARNING
-	}
-
-	return tflint.ERROR
 }
 
 // eosBlockDef represents a block definition for schema generation.
