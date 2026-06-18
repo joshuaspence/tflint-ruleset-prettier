@@ -20,7 +20,6 @@ type eosMetaOrderConfig struct {
 type eosMetaRuleConfig struct {
 	Level         string               `hclext:"level,optional"`
 	Order         []eosMetaOrderConfig `hclext:"order,block"`
-	SourceVersion *bool                `hclext:"source_version,optional"`
 }
 
 // MetaRule checks for meta-argument style violations.
@@ -61,7 +60,6 @@ func (r *MetaRule) Check(runner tflint.Runner) error {
 			First: []string{"for_each", "count"},
 			Last:  []string{"depends_on", "provider", "lifecycle"},
 		}},
-		SourceVersion: eosBoolPtr(true),
 	}
 	if err := runner.DecodeRuleConfig(r.Name(), config); err != nil {
 		return err
@@ -81,9 +79,6 @@ func (r *MetaRule) Check(runner tflint.Runner) error {
 			eosCheckMetaOrder(runner, r, config, block)
 			if attr, exists := block.Body.Attributes["count"]; exists {
 				eosCheckCountGuard(runner, r, attr)
-			}
-			if block.Type == "module" && (config.SourceVersion == nil || *config.SourceVersion) {
-				eosCheckModuleSourceVersion(runner, r, block)
 			}
 		}
 	}
