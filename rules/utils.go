@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-  "github.com/hashicorp/hcl/v2"
-  "github.com/hashicorp/hcl/v2/hclsyntax"
-  "github.com/terraform-linters/tflint-plugin-sdk/tflint"
+	"github.com/hashicorp/hcl/v2"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // checkExpression is a generic helper to validate expressions and files before processing.
@@ -50,33 +50,33 @@ func isWhitespace(b byte) bool {
 }
 
 func walkTokens[T any](
-  runner tflint.Runner,
-  rule T,
-  checkFunc func(tflint.Runner, T, hclsyntax.Token),
+	runner tflint.Runner,
+	rule T,
+	checkFunc func(tflint.Runner, T, hclsyntax.Token),
 ) error {
-  path, err := runner.GetModulePath()
-  if err != nil {
-    return err
-  }
-  if !path.IsRoot() {
-    return nil
-  }
+	path, err := runner.GetModulePath()
+	if err != nil {
+		return err
+	}
+	if !path.IsRoot() {
+		return nil
+	}
 
-  files, err := runner.GetFiles()
-  if err != nil {
-    return err
-  }
+	files, err := runner.GetFiles()
+	if err != nil {
+		return err
+	}
 
-  for filename, file := range files {
-    tokens, diags := hclsyntax.LexConfig(file.Bytes, filename, hcl.InitialPos)
-    if diags.HasErrors() {
-      return diags
-    }
+	for filename, file := range files {
+		tokens, diags := hclsyntax.LexConfig(file.Bytes, filename, hcl.InitialPos)
+		if diags.HasErrors() {
+			return diags
+		}
 
-    for _, token := range tokens {
-      checkFunc(runner, rule, token)
-    }
-  }
+		for _, token := range tokens {
+			checkFunc(runner, rule, token)
+		}
+	}
 
-  return nil
+	return nil
 }

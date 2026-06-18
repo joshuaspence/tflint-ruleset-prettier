@@ -70,7 +70,7 @@ func (r *MapTrailingCommaRule) Check(runner tflint.Runner) error {
 				}
 			}
 
-  		for _, i := range itemsWithComma {
+			for _, i := range itemsWithComma {
 				// If the next item is on the same line, the comma is a separator and cannot be removed
 				if i+1 < len(expr.Items) {
 					currentEndLine := expr.Items[i].ValueExpr.Range().End.Line
@@ -123,7 +123,7 @@ func (r *MapTrailingCommaRule) Check(runner tflint.Runner) error {
 				}
 			}
 
-	  	return nil
+			return nil
 		})
 	}))
 

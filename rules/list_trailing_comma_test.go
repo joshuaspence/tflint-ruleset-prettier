@@ -14,16 +14,16 @@ func Test_ListTrailingCommaRule(t *testing.T) {
 		Files    map[string]string
 		Expected helper.Issues
 	}{
-    {                                                                                                                   
-      Name: "trailing comma",                                                                                        
-      Content: `                                                                                                        
+		{
+			Name: "trailing comma",
+			Content: `                                                                                                        
 resource "vault_generic_endpoint" "user" {                                                                              
   depends_on = [                                                                                                        
     random_password.svc_acc_pass,                                                                                       
   ]                                                                                                                     
-}`,                                                                                                                     
-      Expected: helper.Issues{},                                                                                         
-    },
+}`,
+			Expected: helper.Issues{},
+		},
 		{
 			Name: "no trailing comma",
 			Content: `

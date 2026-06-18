@@ -14,8 +14,8 @@ func Test_MapTrailingCommaRule(t *testing.T) {
 		Expected helper.Issues
 	}{
 		{
-			Name: "without trailing commas",			
-      Content: `
+			Name: "without trailing commas",
+			Content: `
 locals {
   a_dictionary = {
     one  = "fish"
@@ -38,43 +38,43 @@ locals {
   }
 }`,
 			Expected: helper.Issues{
-        {
-          Rule:    NewMapTrailingCommaRule(),
-          Message: "Map values should not have trailing commas",
-          Range: hcl.Range{
-            Filename: "resource.tf",
-            Start:    hcl.Pos{Line: 4, Column: 12},
-            End:      hcl.Pos{Line: 4, Column: 18},
-          },
-        },
-        {
-          Rule:    NewMapTrailingCommaRule(),
-          Message: "Map values should not have trailing commas",
-          Range: hcl.Range{
-            Filename: "resource.tf",
-            Start:    hcl.Pos{Line: 5, Column: 12},
-            End:      hcl.Pos{Line: 5, Column: 18},
-          },
-        },
-        {
-          Rule:    NewMapTrailingCommaRule(),
-          Message: "Map values should not have trailing commas",
-          Range: hcl.Range{
-            Filename: "resource.tf",
-            Start:    hcl.Pos{Line: 6, Column: 12},
-            End:      hcl.Pos{Line: 6, Column: 18},
-          },
-        },
-        {
-          Rule:    NewMapTrailingCommaRule(),
-          Message: "Map values should not have trailing commas",
-          Range: hcl.Range{
-            Filename: "resource.tf",
-            Start:    hcl.Pos{Line: 7, Column: 12},
-            End:      hcl.Pos{Line: 7, Column: 18},
-          },
-        },
-      },
+				{
+					Rule:    NewMapTrailingCommaRule(),
+					Message: "Map values should not have trailing commas",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 4, Column: 12},
+						End:      hcl.Pos{Line: 4, Column: 18},
+					},
+				},
+				{
+					Rule:    NewMapTrailingCommaRule(),
+					Message: "Map values should not have trailing commas",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 5, Column: 12},
+						End:      hcl.Pos{Line: 5, Column: 18},
+					},
+				},
+				{
+					Rule:    NewMapTrailingCommaRule(),
+					Message: "Map values should not have trailing commas",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 6, Column: 12},
+						End:      hcl.Pos{Line: 6, Column: 18},
+					},
+				},
+				{
+					Rule:    NewMapTrailingCommaRule(),
+					Message: "Map values should not have trailing commas",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 7, Column: 12},
+						End:      hcl.Pos{Line: 7, Column: 18},
+					},
+				},
+			},
 		},
 		{
 			Name: "do not remove separator comma on same line",

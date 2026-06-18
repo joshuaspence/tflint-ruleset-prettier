@@ -54,8 +54,8 @@ func (r *ListTrailingCommaRule) Check(runner tflint.Runner) error {
 				return nil
 			}
 
-			// Check if there's already a trailing comma after the last item. We need to skip whitespace and newlines to 
-      // handle heredoc cases.
+			// Check if there's already a trailing comma after the last item. We need to skip whitespace and newlines to
+			// handle heredoc cases.
 			commaPos := lastItemRange.End.Byte
 
 			// Skip whitespace and newlines after the last item to look for a comma
