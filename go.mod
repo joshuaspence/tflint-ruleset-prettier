@@ -9,6 +9,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.24.0
 	github.com/myerscode/aws-meta v0.98.0
 	github.com/terraform-linters/tflint-plugin-sdk v0.25.0
+	github.com/zclconf/go-cty v1.18.1
 )
 
 require (
@@ -41,7 +42,6 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
-	github.com/zclconf/go-cty v1.18.1 // indirect
 	golang.org/x/mod v0.36.0 // indirect
 	golang.org/x/net v0.54.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
