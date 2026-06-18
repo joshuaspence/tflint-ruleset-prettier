@@ -27,7 +27,7 @@ func (r *AwsProviderHardcodedRegionRule) Name() string {
 
 // Enabled returns whether the rule is enabled by default
 func (r *AwsProviderHardcodedRegionRule) Enabled() bool {
-	return false
+	return true
 }
 
 // Severity returns the rule severity

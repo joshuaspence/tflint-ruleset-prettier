@@ -40,10 +40,12 @@ resource "aws_iam_policy" "good" {
 
 ## Enabling this rule
 
-This rule is **disabled by default**. To enable it, add it to your `.tflint.hcl`:
+This rule is **enabled by default** when you install the prettier plugin. No additional configuration is needed.
+
+If you want to disable this rule, add it to your `.tflint.hcl`:
 
 ```hcl
 rule "aws_iam_policy_hardcoded_partition" {
-  enabled = true
+  enabled = false
 }
 ```

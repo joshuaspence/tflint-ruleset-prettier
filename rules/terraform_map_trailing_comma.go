@@ -28,7 +28,7 @@ func (r *TerraformMapTrailingCommaRule) Name() string {
 
 // Enabled returns whether the rule is enabled by default
 func (r *TerraformMapTrailingCommaRule) Enabled() bool {
-	return false
+	return true
 }
 
 // Severity returns the rule severity
