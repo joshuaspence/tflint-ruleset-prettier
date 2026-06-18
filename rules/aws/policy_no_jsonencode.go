@@ -28,7 +28,7 @@ func (r *PolicyNoJsonencodeRule) Enabled() bool {
 }
 
 func (r *PolicyNoJsonencodeRule) Severity() tflint.Severity {
-	return tflint.WARNING
+	return tflint.NOTICE
 }
 
 func (r *PolicyNoJsonencodeRule) Link() string {
