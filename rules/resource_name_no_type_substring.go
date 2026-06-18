@@ -9,13 +9,23 @@ import (
 )
 
 type ResourceNameNoTypeSubstringRule struct {
-	BaseRule
+	tflint.DefaultRule
 }
 
 func NewResourceNameNoTypeSubstringRule() *ResourceNameNoTypeSubstringRule {
-	return &ResourceNameNoTypeSubstringRule{
-		BaseRule: BaseRule{ruleName: "resource_name_no_type_substring"},
-	}
+	return &ResourceNameNoTypeSubstringRule{}
+}
+
+func (r *ResourceNameNoTypeSubstringRule) Name() string {
+  return "resource_name_no_type_substring"
+}
+
+func (r *ResourceNameNoTypeSubstringRule) Enabled() bool {
+  return true
+}
+
+func (r *ResourceNameNoTypeSubstringRule) Severity() tflint.Severity {
+  return tflint.WARNING
 }
 
 func (r *ResourceNameNoTypeSubstringRule) Link() string {
@@ -78,7 +88,7 @@ func (r *ResourceNameNoTypeSubstringRule) checkNameAttribute(runner tflint.Runne
 
 	nameWords := SplitWordsOnDash(nameValue) // Names only have dashes
 	if found, word := ContainsAnyWord(nameWords, typeWords); found {
-		return EmitIssue(runner, r, fmt.Sprintf("Resource %s attribute '%s' contains substring '%s' from resource type '%s'", attrName, nameValue, word, resourceType), attr.Range)
+		return runner.EmitIssue(r, fmt.Sprintf("Resource %s attribute '%s' contains substring '%s' from resource type '%s'", attrName, nameValue, word, resourceType), attr.Range)
 	}
 
 	return nil

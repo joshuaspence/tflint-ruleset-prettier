@@ -11,13 +11,23 @@ import (
 
 // OutputMustBeInOutputsFileRule ensures all output blocks are declared in outputs.tf.
 type OutputMustBeInOutputsFileRule struct {
-	BaseRule
+  tflint.DefaultRule
 }
 
 func NewOutputMustBeInOutputsFileRule() *OutputMustBeInOutputsFileRule {
-	return &OutputMustBeInOutputsFileRule{
-		BaseRule: BaseRule{ruleName: "output_must_be_in_outputs_file"},
-	}
+	return &OutputMustBeInOutputsFileRule{}
+}
+
+func (r *OutputMustBeInOutputsFileRule) Name() string {
+  return "output_must_be_in_outputs_file"
+}
+
+func (r *OutputMustBeInOutputsFileRule) Enabled() bool {
+  return true
+}
+
+func (r *OutputMustBeInOutputsFileRule) Severity() tflint.Severity {
+  return tflint.WARNING
 }
 
 func (r *OutputMustBeInOutputsFileRule) Link() string {
@@ -41,7 +51,8 @@ func (r *OutputMustBeInOutputsFileRule) Check(runner tflint.Runner) error {
 	for _, block := range content.Blocks {
 		filename := filepath.Base(block.DefRange.Filename)
 		if filename != "outputs.tf" {
-			if err := EmitIssue(runner, r,
+			if err := runner.EmitIssue(
+        r,
 				fmt.Sprintf("Output %q is defined in %s. All outputs should be in outputs.tf for consistent file organization.", block.Labels[0], filename),
 				block.DefRange,
 			); err != nil {

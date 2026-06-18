@@ -9,13 +9,23 @@ import (
 )
 
 type ResourceNameKebabRule struct {
-	BaseRule
+  tflint.DefaultRule
 }
 
 func NewResourceNameKebabRule() *ResourceNameKebabRule {
-	return &ResourceNameKebabRule{
-		BaseRule: BaseRule{ruleName: "resource_name_kebab"},
-	}
+	return &ResourceNameKebabRule{}
+}
+
+func (r *ResourceNameKebabRule) Name() string {
+  return "resource_name_kebab"
+}
+
+func (r *ResourceNameKebabRule) Enabled() bool {
+  return true
+}
+
+func (r *ResourceNameKebabRule) Severity() tflint.Severity {
+  return tflint.WARNING
 }
 
 func (r *ResourceNameKebabRule) Link() string {
@@ -68,7 +78,7 @@ func (r *ResourceNameKebabRule) checkNameAttribute(runner tflint.Runner, attrNam
 	}
 
 	if !KebabRegex.MatchString(nameValue) {
-		return EmitIssue(runner, r, fmt.Sprintf("Resource %s attribute '%s' must contain only lowercase letters, numbers, and dashes", attrName, nameValue), attr.Range)
+		return runner.EmitIssue(r, fmt.Sprintf("Resource %s attribute '%s' must contain only lowercase letters, numbers, and dashes", attrName, nameValue), attr.Range)
 	}
 
 	return nil

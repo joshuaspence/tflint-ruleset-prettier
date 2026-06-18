@@ -20,15 +20,25 @@ import (
 // it is a no-op unless the attributes config is set. By naming an attribute the
 // user is asserting that element order is not semantically significant for it.
 type ListAlphabeticalOrderRule struct {
-	BaseRule
+  tflint.DefaultRule
 	Attributes      []string
 	CaseInsensitive bool
 }
 
 func NewListAlphabeticalOrderRule() *ListAlphabeticalOrderRule {
-	return &ListAlphabeticalOrderRule{
-		BaseRule: BaseRule{ruleName: "list_alphabetical_order"},
-	}
+	return &ListAlphabeticalOrderRule{}
+}
+
+func (r *ListAlphabeticalOrderRule) Name() string {
+  return "list_alphabetical_order"
+}
+
+func (r *ListAlphabeticalOrderRule) Enabled() bool {
+  return true
+}
+
+func (r *ListAlphabeticalOrderRule) Severity() tflint.Severity {
+  return tflint.WARNING
 }
 
 func (r *ListAlphabeticalOrderRule) Link() string {

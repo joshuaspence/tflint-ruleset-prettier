@@ -49,7 +49,7 @@ func (r *VariableMustBeInVariablesFileRule) Check(runner tflint.Runner) error {
 			filename := filepath.Base(block.DefRange.Filename)
 
 			if filename != "variables.tf" {
-				err := EmitIssue(runner, r, fmt.Sprintf("Variable '%s' must be declared in variables.tf, not in %s", varName, filename), block.DefRange)
+				err := runner.EmitIssue(r, fmt.Sprintf("Variable '%s' must be declared in variables.tf, not in %s", varName, filename), block.DefRange)
 				if err != nil {
 					return err
 				}
