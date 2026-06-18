@@ -59,7 +59,7 @@ func (r *TypedVariablesRule) Check(runner tflint.Runner) error {
 
 			if !hasType {
 				if err := runner.EmitIssue(
-          r,
+					r,
 					fmt.Sprintf("Variable %q is missing a type constraint.", block.Labels[0]),
 					block.DefRange(),
 				); err != nil {

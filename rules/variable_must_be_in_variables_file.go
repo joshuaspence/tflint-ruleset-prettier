@@ -18,7 +18,7 @@ func NewVariableMustBeInVariablesFileRule() *VariableMustBeInVariablesFileRule {
 }
 
 func (r *VariableMustBeInVariablesFileRule) Name() string {
-	return "variables_must_be_in_variables_file"
+	return "variable_must_be_in_variables_file"
 }
 
 func (r *VariableMustBeInVariablesFileRule) Enabled() bool {

@@ -2,7 +2,7 @@ package rules
 
 import (
 	"fmt"
-  "regexp"
+	"regexp"
 
 	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
@@ -12,7 +12,7 @@ import (
 var KebabRegex = regexp.MustCompile(`^[a-z0-9-]+$`)
 
 type ResourceNameKebabRule struct {
-  tflint.DefaultRule
+	tflint.DefaultRule
 }
 
 func NewResourceNameKebabRule() *ResourceNameKebabRule {
@@ -20,15 +20,15 @@ func NewResourceNameKebabRule() *ResourceNameKebabRule {
 }
 
 func (r *ResourceNameKebabRule) Name() string {
-  return "resource_name_kebab"
+	return "resource_name_kebab"
 }
 
 func (r *ResourceNameKebabRule) Enabled() bool {
-  return true
+	return true
 }
 
 func (r *ResourceNameKebabRule) Severity() tflint.Severity {
-  return tflint.WARNING
+	return tflint.WARNING
 }
 
 func (r *ResourceNameKebabRule) Link() string {

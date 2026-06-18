@@ -39,16 +39,14 @@ plugin "prettier" {
 |output_must_be_in_outputs_file|Ensures all `output` blocks are declared in `outputs.tf`|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/output_must_be_in_outputs_file.md)|
 |resource_name_kebab|Ensures `name` and `name_prefix` attributes use kebab-case|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/resource_name_kebab.md)|
 |resource_name_no_type_substring|Prevents `name` and `name_prefix` attributes from containing words that appear in the resource type|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/resource_name_no_type_substring.md)|
-|variable_has_type|Ensures all variables have an explicit `type` constraint|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/variable_has_type.md)|
-|variable_must_be_in_variables_file|Ensures all variable blocks are declared in `variables.tf`|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/variable_must_be_in_variables_file.md)|
-|variable_region|Flags any variable named `region`|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/variable_region.md)|
+|typed_variables|Ensures all variables have an explicit `type` constraint|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/typed_variables.md)|
+|variable_must_be_in_variables_file|Ensures all variable blocks are declared in `variables.tf`|NOTICE|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/variable_must_be_in_variables_file.md)|
 |comments|Enforces comment style: no end-of-line comments, no jammed comments, and a maximum line length|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/comments.md)|
 |death_mask|Identifies commented-out blocks of code left behind ("death masks")|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/death_mask.md)|
-|heredoc|Suggests indented heredoc syntax (`<<-`) and optionally flags `EOF` delimiters|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/heredoc.md)|
+|indented_heredoc|Suggests indented heredoc syntax (`<<-`) instead of standard heredoc (`<<`)|NOTICE|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/indented_heredoc.md)|
 |meta|Enforces Terraform meta-argument syntax conventions|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/meta.md)|
 |naming|Enforces naming conventions on Terraform blocks and locals|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/naming.md)|
 |type_repetition|Validates that resource and data source names do not repeat a word from their type|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/type_repetition.md)|
-|typed_variables_except_any|Validates that variables do not use `any` as their type, including inside composite types|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/typed_variables_except_any.md)|
 |lists_trailing_comma|Validates that the last item in a multi-line list ends with a trailing comma|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/lists_trailing_comma.md)|
 |map_trailing_comma|Validates that maps have consistent trailing commas|WARNING|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/map_trailing_comma.md)|
 |variables_order|Validates that variable blocks are sorted alphabetically|NOTICE|✅|[docs](https://github.com/joshuaspence/tflint-ruleset-prettier/blob/main/docs/rules/variables_order.md)|

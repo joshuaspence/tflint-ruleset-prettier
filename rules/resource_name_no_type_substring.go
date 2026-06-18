@@ -2,7 +2,7 @@ package rules
 
 import (
 	"fmt"
-  "strings"
+	"strings"
 
 	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
@@ -18,15 +18,15 @@ func NewResourceNameNoTypeSubstringRule() *ResourceNameNoTypeSubstringRule {
 }
 
 func (r *ResourceNameNoTypeSubstringRule) Name() string {
-  return "resource_name_no_type_substring"
+	return "resource_name_no_type_substring"
 }
 
 func (r *ResourceNameNoTypeSubstringRule) Enabled() bool {
-  return true
+	return true
 }
 
 func (r *ResourceNameNoTypeSubstringRule) Severity() tflint.Severity {
-  return tflint.WARNING
+	return tflint.WARNING
 }
 
 func (r *ResourceNameNoTypeSubstringRule) Link() string {
@@ -96,26 +96,26 @@ func (r *ResourceNameNoTypeSubstringRule) checkNameAttribute(runner tflint.Runne
 }
 
 func containsAnyWord(haystack, needle []string) (bool, string) {
-  for _, n := range needle {
-    for _, h := range haystack {
-      if strings.EqualFold(n, h) {
-        return true, n
-      }
-    }
-  }
-  return false, ""
+	for _, n := range needle {
+		for _, h := range haystack {
+			if strings.EqualFold(n, h) {
+				return true, n
+			}
+		}
+	}
+	return false, ""
 }
 
 func splitWordsOnUnderscore(s string) []string {
-  return strings.Split(s, "_")
+	return strings.Split(s, "_")
 }
 
 func splitWordsOnDash(s string) []string {
-  return strings.Split(s, "-")
+	return strings.Split(s, "-")
 }
 
 func splitWords(s string) []string {
-  return strings.FieldsFunc(s, func(c rune) bool {
-    return c == '_' || c == '-'
-  })
+	return strings.FieldsFunc(s, func(c rune) bool {
+		return c == '_' || c == '-'
+	})
 }

@@ -10,7 +10,7 @@ import (
 )
 
 type OutputMustBeInOutputsFileRule struct {
-  tflint.DefaultRule
+	tflint.DefaultRule
 }
 
 func NewOutputMustBeInOutputsFileRule() *OutputMustBeInOutputsFileRule {
@@ -18,15 +18,15 @@ func NewOutputMustBeInOutputsFileRule() *OutputMustBeInOutputsFileRule {
 }
 
 func (r *OutputMustBeInOutputsFileRule) Name() string {
-  return "output_must_be_in_outputs_file"
+	return "output_must_be_in_outputs_file"
 }
 
 func (r *OutputMustBeInOutputsFileRule) Enabled() bool {
-  return true
+	return true
 }
 
 func (r *OutputMustBeInOutputsFileRule) Severity() tflint.Severity {
-  return tflint.NOTICE
+	return tflint.NOTICE
 }
 
 func (r *OutputMustBeInOutputsFileRule) Link() string {
@@ -51,7 +51,7 @@ func (r *OutputMustBeInOutputsFileRule) Check(runner tflint.Runner) error {
 		filename := filepath.Base(block.DefRange.Filename)
 		if filename != "outputs.tf" {
 			if err := runner.EmitIssue(
-        r,
+				r,
 				fmt.Sprintf("Output %q is defined in %s. All outputs should be in outputs.tf.", block.Labels[0], filename),
 				block.DefRange,
 			); err != nil {
