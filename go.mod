@@ -1,4 +1,4 @@
-module github.com/terraform-linters/tflint-ruleset-template
+module github.com/joshuaspence/tflint-ruleset-prettier
 
 go 1.26.1
 

@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/hashicorp/hcl/v2"
-	"github.com/terraform-linters/tflint-ruleset-template/rules/awsmeta"
+	"github.com/joshuaspence/tflint-ruleset-prettier/rules/awsmeta"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
