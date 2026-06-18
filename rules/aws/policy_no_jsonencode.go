@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"fmt"
@@ -12,13 +12,23 @@ import (
 )
 
 type AwsPolicyNoJsonencodeRule struct {
-	BaseRule
+	tflint.DefaultRule
 }
 
 func NewAwsPolicyNoJsonencodeRule() *AwsPolicyNoJsonencodeRule {
-	return &AwsPolicyNoJsonencodeRule{
-		BaseRule: BaseRule{ruleName: "aws_policy_no_jsonencode"},
-	}
+	return &AwsPolicyNoJsonencodeRule{}
+}
+
+func (r *AwsPolicyNoJsonencodeRule) Name() string {
+	return "aws_policy_no_jsonencode"
+}
+
+func (r *AwsPolicyNoJsonencodeRule) Enabled() bool {
+	return true
+}
+
+func (r *AwsPolicyNoJsonencodeRule) Severity() tflint.Severity {
+	return tflint.WARNING
 }
 
 func (r *AwsPolicyNoJsonencodeRule) Link() string {
@@ -50,7 +60,7 @@ func (r *AwsPolicyNoJsonencodeRule) Check(runner tflint.Runner) error {
 			for name, attr := range block.Body.Attributes {
 				if r.isPolicyAttribute(name) {
 					if r.containsJsonencode(attr.Expr) {
-						err := EmitIssue(runner, r, fmt.Sprintf("AWS resource '%s' attribute '%s' should reference an aws_iam_policy_document data source instead of using jsonencode()", resourceType, name), attr.Range)
+						err := runner.EmitIssue(r, fmt.Sprintf("AWS resource '%s' attribute '%s' should reference an aws_iam_policy_document data source instead of using jsonencode()", resourceType, name), attr.Range)
 						if err != nil {
 							return err
 						}

@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"testing"
@@ -13,10 +13,10 @@ func Test_AwsIamPolicyHardcodedRegionRule(t *testing.T) {
 		ExpectedCount int
 	}{
 		{
-			Name: "hardcoded region in policy",
+			Name: "hardcoded region",
 			Content: `
 resource "aws_iam_policy" "example" {
-  name = "example-policy"
+  name   = "example-policy"
   policy = "arn:aws:s3:::my-bucket/us-east-1/*"
 }`,
 			ExpectedCount: 1,
@@ -25,7 +25,7 @@ resource "aws_iam_policy" "example" {
 			Name: "no hardcoded regions",
 			Content: `
 resource "aws_iam_policy" "example" {
-  name = "example-policy"
+  name   = "example-policy"
   policy = "arn:aws:s3:::my-bucket/variable-region/*"
 }`,
 			ExpectedCount: 0,

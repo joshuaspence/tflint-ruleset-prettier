@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"encoding/json"
@@ -10,9 +10,8 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// checkIamPolicyAttributes evaluates the "policy" attribute of every resource
-// of the given type and invokes check for each policy string that can be
-// statically evaluated.
+// checkIamPolicyAttributes evaluates the "policy" attribute of every resource of the given type and invokes check for
+// each policy string that can be statically evaluated.
 func checkIamPolicyAttributes(runner tflint.Runner, resourceType string, check func(policy string, rng hcl.Range) error) error {
 	resources, err := runner.GetResourceContent(resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
@@ -40,9 +39,9 @@ func checkIamPolicyAttributes(runner tflint.Runner, resourceType string, check f
 	return nil
 }
 
-// iamPolicyScanTarget normalizes a policy string for scanning. If the policy is
-// valid JSON it is re-marshaled (canonicalizing whitespace) and the label is
-// suffixed with " document" to match the message used for structured policies.
+// iamPolicyScanTarget normalizes a policy string for scanning. If the policy is valid JSON it is re-marshaled
+// (canonicalizing whitespace) and the label is suffixed with " document" to match the message used for structured
+// policies.
 func iamPolicyScanTarget(policy, policyLabel string) (target, label string, ok bool) {
 	var policyDoc map[string]interface{}
 	if err := json.Unmarshal([]byte(policy), &policyDoc); err != nil {
@@ -58,9 +57,8 @@ func iamPolicyScanTarget(policy, policyLabel string) (target, label string, ok b
 	return string(docBytes), policyLabel + " document", true
 }
 
-// checkIamPolicyForHardcodedRegions emits an issue for each hardcoded region
-// found either as a bare region string or within an ARN. policyLabel is the
-// human-readable resource description used in messages (e.g. "IAM policy").
+// checkIamPolicyForHardcodedRegions emits an issue for each hardcoded region found either as a bare region string or
+// within an ARN. policyLabel is the human-readable resource description used in messages (e.g. "IAM policy").
 func checkIamPolicyForHardcodedRegions(runner tflint.Runner, rule tflint.Rule, policyLabel, policy string, rng hcl.Range) error {
 	regionInStringPattern := awsmeta.GetRegionInStringPattern()
 	arnRegionPattern := awsmeta.GetARNRegionPattern()
@@ -96,9 +94,8 @@ func checkIamPolicyForHardcodedRegions(runner tflint.Runner, rule tflint.Rule, p
 	return nil
 }
 
-// checkIamPolicyForHardcodedPartitions emits an issue for each hardcoded
-// partition found within an ARN. policyLabel is the human-readable resource
-// description used in messages (e.g. "IAM policy").
+// checkIamPolicyForHardcodedPartitions emits an issue for each hardcoded partition found within an ARN. policyLabel is
+// the human-readable resource description used in messages (e.g. "IAM policy").
 func checkIamPolicyForHardcodedPartitions(runner tflint.Runner, rule tflint.Rule, policyLabel, policy string, rng hcl.Range) error {
 	arnPartitionPattern := awsmeta.GetPartitionPattern()
 

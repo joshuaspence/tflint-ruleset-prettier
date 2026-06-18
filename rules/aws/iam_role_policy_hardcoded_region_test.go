@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"testing"
@@ -6,33 +6,35 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsIamPolicyHardcodedPartitionRule(t *testing.T) {
+func Test_AwsIamRolePolicyHardcodedRegionRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
 		ExpectedCount int
 	}{
 		{
-			Name: "hardcoded partition in policy",
+			Name: "hardcoded region",
 			Content: `
-resource "aws_iam_policy" "example" {
-  name = "example-policy"
-  policy = "arn:aws:s3:::my-bucket/*"
+resource "aws_iam_role_policy" "example" {
+  name   = "example-policy"
+  role   = "example-role"
+  policy = "arn:aws:s3:::my-bucket/us-east-1/*"
 }`,
 			ExpectedCount: 1,
 		},
 		{
-			Name: "no hardcoded partitions",
+			Name: "no hardcoded regions",
 			Content: `
-resource "aws_iam_policy" "example" {
-  name = "example-policy"
-  policy = "some-policy-without-arn"
+resource "aws_iam_role_policy" "example" {
+  name   = "example-policy"
+  role   = "example-role"
+  policy = "arn:aws:s3:::my-bucket/variable-region/*"
 }`,
 			ExpectedCount: 0,
 		},
 	}
 
-	rule := NewAwsIamPolicyHardcodedPartitionRule()
+	rule := NewAwsIamRolePolicyHardcodedRegionRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

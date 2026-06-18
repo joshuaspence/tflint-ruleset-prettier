@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"testing"
@@ -49,7 +49,7 @@ resource "aws_iam_role" "test" {
 			ExpectedCount: 9,
 		},
 		{
-			Name: "using data source (no issues)",
+			Name: "using data source",
 			Content: `
 data "aws_service_principal" "s3" {
   service_name = "s3"
@@ -67,7 +67,7 @@ resource "aws_iam_role" "test" {
 			ExpectedCount: 0,
 		},
 		{
-			Name: "hardcoded service principal (no issues for this rule)",
+			Name: "hardcoded service principal",
 			Content: `
 resource "aws_iam_role" "test" {
   assume_role_policy = jsonencode({

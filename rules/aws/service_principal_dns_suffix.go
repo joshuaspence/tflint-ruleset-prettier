@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"fmt"
@@ -10,40 +10,32 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsServicePrincipalDNSSuffixRule checks for use of dns_suffix in service principals
 type AwsServicePrincipalDNSSuffixRule struct {
 	tflint.DefaultRule
 }
 
-// NewAwsServicePrincipalDNSSuffixRule returns a new rule
 func NewAwsServicePrincipalDNSSuffixRule() *AwsServicePrincipalDNSSuffixRule {
 	return &AwsServicePrincipalDNSSuffixRule{}
 }
 
-// Name returns the rule name
 func (r *AwsServicePrincipalDNSSuffixRule) Name() string {
 	return "aws_service_principal_dns_suffix"
 }
 
-// Enabled returns whether the rule is enabled by default
 func (r *AwsServicePrincipalDNSSuffixRule) Enabled() bool {
 	return true
 }
 
-// Severity returns the rule severity
 func (r *AwsServicePrincipalDNSSuffixRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-// Link returns the rule reference link
 func (r *AwsServicePrincipalDNSSuffixRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Pattern to match service names with dns_suffix interpolation
 var dnsSuffixPattern = regexp.MustCompile(`([a-z0-9\-]+)\.\$\{[^}]*\.dns_suffix\}`)
 
-// Check checks for use of dns_suffix in service principals
 func (r *AwsServicePrincipalDNSSuffixRule) Check(runner tflint.Runner) error {
 	files, err := runner.GetFiles()
 	if err != nil {
@@ -72,7 +64,7 @@ func (r *AwsServicePrincipalDNSSuffixRule) Check(runner tflint.Runner) error {
 			}
 		}
 
-		// Skip pure variable/attribute references (e.g. data.aws_partition.current.dns_suffix)
+		// Skip pure variable/attribute references (e.g. data.aws_partition.current.dns_suffix).
 		// These contain "dns_suffix" in their source but aren't hardcoded strings
 		if _, diags := hcl.AbsTraversalForExpr(expr); !diags.HasErrors() {
 			return nil

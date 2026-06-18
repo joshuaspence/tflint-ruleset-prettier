@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/joshuaspence/tflint-ruleset-prettier/project"
 	"github.com/joshuaspence/tflint-ruleset-prettier/rules"
+	"github.com/joshuaspence/tflint-ruleset-prettier/rules/aws"
 	"github.com/terraform-linters/tflint-plugin-sdk/plugin"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
@@ -19,16 +20,16 @@ func main() {
 				rules.NewVariablesOrderRule(),
 				rules.NewTypeVariablesExceptAnyRule(),
 				rules.NewTypeRepetitionRule(),
-				rules.NewAwsMetaHardcodedRule(),
-				rules.NewAwsHardcodedIDsRule(),
-				rules.NewAwsIamRolePolicyHardcodedRegionRule(),
-				rules.NewAwsIamRolePolicyHardcodedPartitionRule(),
-				rules.NewAwsIamPolicyHardcodedRegionRule(),
-				rules.NewAwsIamPolicyHardcodedPartitionRule(),
-				rules.NewAwsProviderHardcodedRegionRule(),
-				rules.NewAwsServicePrincipalHardcodedRule(),
-				rules.NewAwsServicePrincipalDNSSuffixRule(),
-				rules.NewAwsPolicyNoJsonencodeRule(),
+				aws.NewAwsMetaHardcodedRule(),
+				aws.NewAwsHardcodedIDsRule(),
+				aws.NewAwsIamRolePolicyHardcodedRegionRule(),
+				aws.NewAwsIamRolePolicyHardcodedPartitionRule(),
+				aws.NewAwsIamPolicyHardcodedRegionRule(),
+				aws.NewAwsIamPolicyHardcodedPartitionRule(),
+				aws.NewAwsProviderHardcodedRegionRule(),
+				aws.NewAwsServicePrincipalHardcodedRule(),
+				aws.NewAwsServicePrincipalDNSSuffixRule(),
+				aws.NewAwsPolicyNoJsonencodeRule(),
 				rules.NewLabelNoTypeSubstringRule(),
 				rules.NewLabelSnakeRule(),
 				rules.NewListAlphabeticalOrderRule(),

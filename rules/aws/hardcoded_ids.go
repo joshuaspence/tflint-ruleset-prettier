@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"fmt"
@@ -9,37 +9,30 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsHardcodedIDsRule checks for hardcoded AWS account IDs and AMI IDs
 type AwsHardcodedIDsRule struct {
 	tflint.DefaultRule
 }
 
-// NewAwsHardcodedIDsRule returns a new rule
 func NewAwsHardcodedIDsRule() *AwsHardcodedIDsRule {
 	return &AwsHardcodedIDsRule{}
 }
 
-// Name returns the rule name
 func (r *AwsHardcodedIDsRule) Name() string {
 	return "aws_hardcoded_ids"
 }
 
-// Enabled returns whether the rule is enabled by default
 func (r *AwsHardcodedIDsRule) Enabled() bool {
 	return true
 }
 
-// Severity returns the rule severity
 func (r *AwsHardcodedIDsRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-// Link returns the rule reference link
 func (r *AwsHardcodedIDsRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks for hardcoded AWS account IDs and AMI IDs
 func (r *AwsHardcodedIDsRule) Check(runner tflint.Runner) error {
 	accountIDPattern := awsmeta.GetAccountIDPattern()
 	amiIDPattern := awsmeta.GetAMIIDPattern()
@@ -98,9 +91,8 @@ func (r *AwsHardcodedIDsRule) Check(runner tflint.Runner) error {
 			return nil
 		}, nil)
 
-		// This walks every expression in the module, so most will not evaluate
-		// to a string (function calls, tuples, unknown references, etc.). Those
-		// evaluation errors are expected and ignored.
+		// This walks every expression in the module, so most will not evaluate to a string (function calls, tuples,
+		// unknown references, etc.). Those/ evaluation errors are expected and ignored.
 		_ = err
 
 		return nil

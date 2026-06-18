@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"fmt"
@@ -11,37 +11,30 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsProviderHardcodedRegionRule checks for hardcoded AWS regions in provider configuration
 type AwsProviderHardcodedRegionRule struct {
 	tflint.DefaultRule
 }
 
-// NewAwsProviderHardcodedRegionRule returns a new rule
 func NewAwsProviderHardcodedRegionRule() *AwsProviderHardcodedRegionRule {
 	return &AwsProviderHardcodedRegionRule{}
 }
 
-// Name returns the rule name
 func (r *AwsProviderHardcodedRegionRule) Name() string {
 	return "aws_provider_hardcoded_region"
 }
 
-// Enabled returns whether the rule is enabled by default
 func (r *AwsProviderHardcodedRegionRule) Enabled() bool {
 	return true
 }
 
-// Severity returns the rule severity
 func (r *AwsProviderHardcodedRegionRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-// Link returns the rule reference link
 func (r *AwsProviderHardcodedRegionRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks for hardcoded AWS regions in provider configuration
 func (r *AwsProviderHardcodedRegionRule) Check(runner tflint.Runner) error {
 	regionPattern := awsmeta.GetRegionPattern()
 	arnRegionPattern := awsmeta.GetARNRegionPattern()
@@ -121,7 +114,6 @@ func (r *AwsProviderHardcodedRegionRule) Check(runner tflint.Runner) error {
 	return nil
 }
 
-// isReference checks if the expression source text contains variable, local, or data references
 func isReference(files map[string]*hcl.File, exprRange hcl.Range) bool {
 	if file, ok := files[exprRange.Filename]; ok {
 		src := file.Bytes

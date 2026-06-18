@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"testing"
@@ -6,18 +6,17 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsIamRolePolicyHardcodedPartitionRule(t *testing.T) {
+func Test_AwsIamPolicyHardcodedPartitionRule(t *testing.T) {
 	tests := []struct {
 		Name          string
 		Content       string
 		ExpectedCount int
 	}{
 		{
-			Name: "hardcoded partition in policy",
+			Name: "hardcoded partition",
 			Content: `
-resource "aws_iam_role_policy" "example" {
-  name = "example-policy"
-  role = "example-role"
+resource "aws_iam_policy" "example" {
+  name   = "example-policy"
   policy = "arn:aws:s3:::my-bucket/*"
 }`,
 			ExpectedCount: 1,
@@ -25,16 +24,15 @@ resource "aws_iam_role_policy" "example" {
 		{
 			Name: "no hardcoded partitions",
 			Content: `
-resource "aws_iam_role_policy" "example" {
-  name = "example-policy"
-  role = "example-role"
+resource "aws_iam_policy" "example" {
+  name   = "example-policy"
   policy = "some-policy-without-arn"
 }`,
 			ExpectedCount: 0,
 		},
 	}
 
-	rule := NewAwsIamRolePolicyHardcodedPartitionRule()
+	rule := NewAwsIamPolicyHardcodedPartitionRule()
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {

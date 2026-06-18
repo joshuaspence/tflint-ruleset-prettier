@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"fmt"
@@ -10,37 +10,30 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsServicePrincipalHardcodedRule checks for hardcoded AWS service principal DNS suffixes
 type AwsServicePrincipalHardcodedRule struct {
 	tflint.DefaultRule
 }
 
-// NewAwsServicePrincipalHardcodedRule returns a new rule
 func NewAwsServicePrincipalHardcodedRule() *AwsServicePrincipalHardcodedRule {
 	return &AwsServicePrincipalHardcodedRule{}
 }
 
-// Name returns the rule name
 func (r *AwsServicePrincipalHardcodedRule) Name() string {
 	return "aws_service_principal_hardcoded"
 }
 
-// Enabled returns whether the rule is enabled by default
 func (r *AwsServicePrincipalHardcodedRule) Enabled() bool {
 	return true
 }
 
-// Severity returns the rule severity
 func (r *AwsServicePrincipalHardcodedRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-// Link returns the rule reference link
 func (r *AwsServicePrincipalHardcodedRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks for hardcoded service principal DNS suffixes
 func (r *AwsServicePrincipalHardcodedRule) Check(runner tflint.Runner) error {
 	dnsSuffixPattern := awsmeta.GetDNSSuffixPattern()
 
@@ -86,9 +79,8 @@ func (r *AwsServicePrincipalHardcodedRule) Check(runner tflint.Runner) error {
 			return nil
 		}, nil)
 
-		// This walks every expression in the module, so most will not evaluate
-		// to a string (function calls, tuples, unknown references, etc.). Those
-		// evaluation errors are expected and ignored.
+		// This walks every expression in the module, so most will not evaluate to a string (function calls, tuples,
+		// unknown references, etc.). Those evaluation errors are expected and ignored.
 		_ = err
 
 		return nil

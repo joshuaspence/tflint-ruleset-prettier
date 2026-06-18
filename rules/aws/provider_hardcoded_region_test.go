@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"testing"
@@ -13,7 +13,7 @@ func Test_AwsProviderHardcodedRegionRule(t *testing.T) {
 		ExpectedCount int
 	}{
 		{
-			Name: "hardcoded region in provider",
+			Name: "hardcoded region",
 			Content: `
 provider "aws" {
   region = "us-east-1"
@@ -42,7 +42,7 @@ provider "aws" {
 		},
 
 		{
-			Name: "using profile - no issues",
+			Name: "using profile",
 			Content: `
 provider "aws" {
   profile = "default"
@@ -50,7 +50,7 @@ provider "aws" {
 			ExpectedCount: 0,
 		},
 		{
-			Name: "using environment variables - no issues",
+			Name: "using environment variables",
 			Content: `
 provider "aws" {
   # Region will be picked up from AWS_DEFAULT_REGION environment variable
@@ -84,7 +84,7 @@ provider "aws" {
 			ExpectedCount: 0,
 		},
 		{
-			Name: "region using local - no issues",
+			Name: "region using local",
 			Content: `
 locals {
   region = "eu-west-1"
@@ -96,7 +96,7 @@ provider "aws" {
 			ExpectedCount: 0,
 		},
 		{
-			Name: "assume_role ARN using variable - no issues",
+			Name: "assume_role ARN using variable",
 			Content: `
 variable "role_arn" {
   default = "arn:aws:iam:us-west-2:123456789012:role/terraform-role"

@@ -1,4 +1,4 @@
-package rules
+package aws
 
 import (
 	"fmt"
@@ -10,46 +10,37 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsMetaHardcodedRule checks for hardcoded regions and partitions in ARN values
-// across all AWS resources by walking all expressions
 type AwsMetaHardcodedRule struct {
 	tflint.DefaultRule
 }
 
-// NewAwsMetaHardcodedRule returns a new rule
 func NewAwsMetaHardcodedRule() *AwsMetaHardcodedRule {
 	return &AwsMetaHardcodedRule{}
 }
 
-// Name returns the rule name
 func (r *AwsMetaHardcodedRule) Name() string {
 	return "aws_meta_hardcoded"
 }
 
-// Enabled returns whether the rule is enabled by default
 func (r *AwsMetaHardcodedRule) Enabled() bool {
 	return true
 }
 
-// Severity returns the rule severity
 func (r *AwsMetaHardcodedRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
-// Link returns the rule reference link
 func (r *AwsMetaHardcodedRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks for hardcoded regions and partitions in ARN-like string values
 func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 	arnRegionPattern := awsmeta.GetARNRegionPattern()
 	arnPartitionPattern := awsmeta.GetPartitionPattern()
 	azPattern := awsmeta.GetAvailabilityZonePattern()
 	regionPattern := awsmeta.GetRegionPattern()
 
-	// Get all source files upfront so we can inspect raw expression text
-	// before making expensive gRPC EvaluateExpr calls
+	// Get all source files upfront so we can inspect raw expression text before making expensive gRPC EvaluateExpr calls
 	files, err := runner.GetFiles()
 	if err != nil {
 		return err
@@ -66,8 +57,7 @@ func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 		}
 		checked[exprKey] = true
 
-		// Pre-filter: check the raw source text for potential matches before
-		// making the expensive gRPC EvaluateExpr call.
+		// Pre-filter: check the raw source text for potential matches before making the expensive gRPC EvaluateExpr call.
 		exprRange := expr.Range()
 		if file, ok := files[exprRange.Filename]; ok {
 			src := file.Bytes
@@ -112,7 +102,7 @@ func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 				return nil
 			}
 
-			// Check for hardcoded availability zone (e.g. "eu-west-2a")
+			// Check for hardcoded availability zone
 			if azPattern.MatchString(value) {
 				if err := runner.EmitIssue(
 					r,
@@ -124,7 +114,7 @@ func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 				return nil
 			}
 
-			// Check for hardcoded region as a standalone value (e.g. "eu-west-2")
+			// Check for hardcoded region as a standalone value
 			if regionPattern.MatchString(value) {
 				if err := runner.EmitIssue(
 					r,
@@ -138,9 +128,8 @@ func (r *AwsMetaHardcodedRule) Check(runner tflint.Runner) error {
 			return nil
 		}, nil)
 
-		// This walks every expression in the module, so most will not evaluate
-		// to a string (function calls, tuples, unknown references, etc.). Those
-		// evaluation errors are expected and ignored.
+		// This walks every expression in the module, so most will not evaluate to a string (function calls, tuples,
+		// unknown references, etc.). Those evaluation errors are expected and ignored.
 		_ = err
 
 		return nil
