@@ -30,8 +30,6 @@ func main() {
 				aws.NewAwsServicePrincipalHardcodedRule(),
 				aws.NewAwsServicePrincipalDNSSuffixRule(),
 				aws.NewAwsPolicyNoJsonencodeRule(),
-				rules.NewLabelNoTypeSubstringRule(),
-				rules.NewLabelSnakeRule(),
 				rules.NewListAlphabeticalOrderRule(),
 				rules.NewOutputMustBeInOutputsFileRule(),
 				rules.NewResourceNameKebabRule(),

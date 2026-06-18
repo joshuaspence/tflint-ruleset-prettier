@@ -6,10 +6,7 @@ import (
 )
 
 // Common regex patterns
-var (
-	SnakeRegex = regexp.MustCompile(`^[a-z0-9_]+$`)
-	KebabRegex = regexp.MustCompile(`^[a-z0-9-]+$`)
-)
+var KebabRegex = regexp.MustCompile(`^[a-z0-9-]+$`)
 
 // SplitWordsOnUnderscore splits a string on underscores only (for labels)
 func SplitWordsOnUnderscore(s string) []string {
