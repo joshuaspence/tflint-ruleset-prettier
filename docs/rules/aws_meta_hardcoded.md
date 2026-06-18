@@ -50,7 +50,7 @@ resource "aws_kms_grant" "test" {
 
 ## Enabling this rule
 
-This rule is **enabled by default** when you install the aws-meta plugin. No additional configuration is needed.
+This rule is **enabled by default** when you install the prettier plugin. No additional configuration is needed.
 
 If you want to disable this rule, add it to your `.tflint.hcl`:
 
