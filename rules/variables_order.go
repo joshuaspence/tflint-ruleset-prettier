@@ -16,7 +16,6 @@ import (
 	"github.com/hashicorp/hcl/v2/hclwrite"
 )
 
-// VariablesOrderRule checks whether the variables are sorted in expected order
 type VariablesOrderRule struct {
 	tflint.DefaultRule
 }
@@ -25,34 +24,27 @@ type VariablesOrderRuleConfig struct {
 	GroupRequired bool `hclext:"group_required"`
 }
 
-// NewVariablesOrderRule returns a new rule
 func NewVariablesOrderRule() *VariablesOrderRule {
 	return &VariablesOrderRule{}
 }
 
-// Name returns the rule name
 func (r *VariablesOrderRule) Name() string {
 	return "variables_order"
 }
 
-// Enabled returns whether the rule is enabled by default
 func (r *VariablesOrderRule) Enabled() bool {
 	return true
 }
 
-// Severity returns the rule severity
 func (r *VariablesOrderRule) Severity() tflint.Severity {
 	return tflint.NOTICE
 }
 
-// Link returns the rule reference link
 func (r *VariablesOrderRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks whether the variables are sorted in the expected order
 func (r *VariablesOrderRule) Check(runner tflint.Runner) error {
-
 	config := &VariablesOrderRuleConfig{}
 	if err := runner.DecodeRuleConfig(r.Name(), config); err != nil {
 		return err
@@ -119,7 +111,6 @@ func (r *VariablesOrderRule) checkVariablesOrder(runner tflint.Runner, sortRequi
 			return nil
 		},
 	)
-
 }
 
 func (r *VariablesOrderRule) sortedVariableCodeTxts(blocks hclsyntax.Blocks, file *hcl.File, sortedVariableNames []string) []string {

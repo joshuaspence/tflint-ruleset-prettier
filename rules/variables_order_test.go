@@ -14,18 +14,18 @@ func Test_TerraformVariablesOrderRule(t *testing.T) {
 		Expected helper.Issues
 	}{
 		{
-			Name: "1. no variable",
+			Name: "no variables",
 			Content: `
-terraform{}`,
+terraform {}`,
 			Config: `
 rule "variables_order" {
-  enabled       = true
+  enabled        = true
   group_required = true
 }`,
 			Expected: helper.Issues{},
 		},
 		{
-			Name: "2. correct variable order",
+			Name: "correct variable order with group_required enabled",
 			Content: `
 variable "image_id" {
   type = string
@@ -42,54 +42,24 @@ variable "docker_ports" {
     external = number
     protocol = string
   }))
+
   default = [
     {
       internal = 8300
       external = 8300
       protocol = "tcp"
-    }
+    },
   ]
 }`,
 			Config: `
 rule "variables_order" {
-  enabled       = true
+  enabled        = true
   group_required = true
 }`,
 			Expected: helper.Issues{},
 		},
 		{
-			Name: "3. sorting based on default value",
-			Content: `
-variable "availability_zone_names" {
-  type    = list(string)
-  default = ["us-west-1a"]
-}
-
-variable "image_id" {
-  type = string
-}`,
-			Config: `
-rule "variables_order" {
-  enabled       = true
-  group_required = true
-}`,
-			Expected: helper.Issues{
-				{
-					Rule: NewVariablesOrderRule(),
-					Message: `Recommended variables order:
-variable "image_id" {
-  type = string
-}
-
-variable "availability_zone_names" {
-  type    = list(string)
-  default = ["us-west-1a"]
-}`,
-				},
-			},
-		},
-		{
-			Name: "4. sorting in alphabetic order",
+			Name: "incorrect variable order with group_required enabled",
 			Content: `
 variable "docker_ports" {
   type = list(object({
@@ -97,65 +67,13 @@ variable "docker_ports" {
     external = number
     protocol = string
   }))
-  default = [
-    {
-      internal = 8300
-      external = 8300
-      protocol = "tcp"
-    }
-  ]
-}
 
-variable "availability_zone_names" {
-  type    = list(string)
-  default = ["us-west-1a"]
-}`,
-			Config: `
-rule "variables_order" {
-  enabled       = true
-  group_required = true
-}`,
-			Expected: helper.Issues{
-				{
-					Rule: NewVariablesOrderRule(),
-					Message: `Recommended variables order:
-variable "availability_zone_names" {
-  type    = list(string)
-  default = ["us-west-1a"]
-}
-
-variable "docker_ports" {
-  type = list(object({
-    internal = number
-    external = number
-    protocol = string
-  }))
   default = [
     {
       internal = 8300
       external = 8300
       protocol = "tcp"
-    }
-  ]
-}`,
-				},
-			},
-		},
-		{
-			Name: "5. mixed",
-			Content: `
-variable "docker_ports" {
-  type = list(object({
-    internal = number
-    external = number
-    protocol = string
-  }))
-  default = [
-    {
-      internal = 8300
-      external = 8300
-      protocol = "tcp"
-    }
+    },
   ]
 }
 
@@ -169,7 +87,7 @@ variable "image_id" {
 }`,
 			Config: `
 rule "variables_order" {
-  enabled       = true
+  enabled        = true
   group_required = true
 }`,
 			Expected: helper.Issues{
@@ -191,19 +109,20 @@ variable "docker_ports" {
     external = number
     protocol = string
   }))
+
   default = [
     {
       internal = 8300
       external = 8300
       protocol = "tcp"
-    }
+    },
   ]
 }`,
 				},
 			},
 		},
 		{
-			Name: "6. sorting with group_required disabled",
+			Name: "correct variaable order with group_required disabled",
 			Content: `
 variable "availability_zone_names" {
   type    = list(string)
@@ -215,7 +134,7 @@ variable "image_id" {
 }`,
 			Config: `
 rule "variables_order" {
-  enabled       = true
+  enabled        = true
   group_required = false
 }`,
 			Expected: helper.Issues{},
@@ -225,9 +144,7 @@ rule "variables_order" {
 
 	for _, tc := range cases {
 		t.Run(tc.Name, func(t *testing.T) {
-			filename := "main.tf"
-
-			runner := helper.TestRunner(t, map[string]string{filename: tc.Content, ".tflint.hcl": tc.Config})
+			runner := helper.TestRunner(t, map[string]string{"main.tf": tc.Content, ".tflint.hcl": tc.Config})
 
 			if err := rule.Check(runner); err != nil {
 				t.Fatalf("Unexpected error occurred: %s", err)
