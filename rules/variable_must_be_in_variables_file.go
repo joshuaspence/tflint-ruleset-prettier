@@ -21,11 +21,11 @@ func (r *VariableMustBeInVariablesFileRule) Name() string {
   return "variables_must_be_in_variables_file"
 }
 
-func (r *HardcodedIDsRule) Enabled() bool {
+func (r *VariableMustBeInVariablesFileRule) Enabled() bool {
   return true
 }
 
-func (r *HardcodedIDsRule) Severity() tflint.Severity {
+func (r *VariableMustBeInVariablesFileRule) Severity() tflint.Severity {
   return tflint.NOTICE
 }
 
