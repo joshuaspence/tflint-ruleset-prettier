@@ -1,0 +1,35 @@
+---
+name: 'release'
+
+on:
+  push:
+    branches:
+      - '!*'
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  attestations: 'write'
+  contents: 'write'
+  id-token: 'write'
+
+jobs:
+  goreleaser:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@v6.0.3'
+      - name: 'Set up Go'
+        uses: 'actions/setup-go@v6.4.0'
+        with:
+          go-version-file: 'go.mod'
+      - name: 'Run GoReleaser'
+        uses: 'goreleaser/goreleaser-action@v7.2.2'
+        with:
+          args: 'release'
+          version: 'latest'
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      - uses: 'actions/attest@v4.1.0'
+        with:
+          subject-path: 'dist/checksums.txt'
