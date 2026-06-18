@@ -6,7 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_DaveOutputMustBeInOutputsFile_Valid(t *testing.T) {
+func Test_OutputMustBeInOutputsFile_Valid(t *testing.T) {
 	rule := NewOutputMustBeInOutputsFileRule()
 
 	runner := helper.TestRunner(t, map[string]string{
@@ -30,7 +30,7 @@ output "bucket_arn" {
 	}
 }
 
-func Test_DaveOutputMustBeInOutputsFile_Invalid(t *testing.T) {
+func Test_OutputMustBeInOutputsFile_Invalid(t *testing.T) {
 	rule := NewOutputMustBeInOutputsFileRule()
 
 	runner := helper.TestRunner(t, map[string]string{
@@ -55,7 +55,7 @@ output "bucket_name" {
 	}
 }
 
-func Test_DaveOutputMustBeInOutputsFile_MixedFiles(t *testing.T) {
+func Test_OutputMustBeInOutputsFile_MixedFiles(t *testing.T) {
 	rule := NewOutputMustBeInOutputsFileRule()
 
 	runner := helper.TestRunner(t, map[string]string{

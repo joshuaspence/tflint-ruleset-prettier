@@ -9,7 +9,6 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// OutputMustBeInOutputsFileRule ensures all output blocks are declared in outputs.tf.
 type OutputMustBeInOutputsFileRule struct {
   tflint.DefaultRule
 }
@@ -27,7 +26,7 @@ func (r *OutputMustBeInOutputsFileRule) Enabled() bool {
 }
 
 func (r *OutputMustBeInOutputsFileRule) Severity() tflint.Severity {
-  return tflint.WARNING
+  return tflint.NOTICE
 }
 
 func (r *OutputMustBeInOutputsFileRule) Link() string {
@@ -53,12 +52,13 @@ func (r *OutputMustBeInOutputsFileRule) Check(runner tflint.Runner) error {
 		if filename != "outputs.tf" {
 			if err := runner.EmitIssue(
         r,
-				fmt.Sprintf("Output %q is defined in %s. All outputs should be in outputs.tf for consistent file organization.", block.Labels[0], filename),
+				fmt.Sprintf("Output %q is defined in %s. All outputs should be in outputs.tf.", block.Labels[0], filename),
 				block.DefRange,
 			); err != nil {
 				return err
 			}
 		}
 	}
+
 	return nil
 }
