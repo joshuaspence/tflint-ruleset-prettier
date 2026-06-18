@@ -140,6 +140,30 @@ func TestEosNamingRule(t *testing.T) {
 				{Rule: NewEosNamingRule(), Message: eosMakeTypeEchoMessage("output", "output_echo")},
 			},
 		},
+		{
+			Name: "type echo via synonym",
+			Config: heredoc.Doc(`
+				rule "eos_naming" {
+				  enabled = true
+				  length  = -1
+				  shout   = false
+				  snake   = false
+				  type_echo {
+				    synonyms = {
+				      bucket = ["pail"]
+				    }
+				  }
+				}
+			`),
+			Content: heredoc.Doc(`
+				resource "aws_s3_bucket" "my_pail" {}
+
+				resource "aws_s3_bucket" "clean_name" {}
+			`),
+			Expected: helper.Issues{
+				{Rule: NewEosNamingRule(), Message: eosMakeTypeEchoSynonymMessage("aws_s3_bucket", "pail", "my_pail")},
+			},
+		},
 	}
 
 	rule := NewEosNamingRule()
@@ -163,4 +187,8 @@ func TestEosNamingRule(t *testing.T) {
 
 func eosMakeTypeEchoMessage(typ string, name string) string {
 	return fmt.Sprintf("Avoid echoing type \"%s\" in label \"%s\".", typ, name)
+}
+
+func eosMakeTypeEchoSynonymMessage(typ string, synonym string, name string) string {
+	return fmt.Sprintf("Avoid echoing type \"%s\" (via synonym '%s') in label \"%s\".", typ, synonym, name)
 }

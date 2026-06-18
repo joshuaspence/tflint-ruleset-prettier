@@ -157,6 +157,18 @@ func TestEosMetaRule(t *testing.T) {
 				  source  = "eos/module/zakpxy"
 				  version = "~> 1.2"
 				}
+
+				module "pass_https_zip_extension" {
+				  source = "https://example.com/eos/test.zip"
+				}
+
+				module "pass_https_tar_gz_extension" {
+				  source = "https://example.com/eos/test.tar.gz"
+				}
+
+				module "pass_https_archive_query" {
+				  source = "https://example.com/eos/test?archive=.zip"
+				}
 			`),
 			Expected: helper.Issues{
 				{Rule: NewEosMetaRule(), Message: "Git module source should specify ref parameter."},

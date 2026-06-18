@@ -211,6 +211,46 @@ func TestStyleGuideTypeVariablesExceptAnyRule(t *testing.T) {
 			},
 		},
 		{
+			Name: "variable with nested list of any",
+			Content: heredoc.Doc(`
+				variable "test" {
+				  type = list(list(any))
+				}
+			`),
+			Expected: helper.Issues{
+				{
+					Rule:    NewStyleGuideTypeVariablesExceptAnyRule(),
+					Message: "Using 'any' as variable type should be avoided",
+					Range: hcl.Range{
+						Filename: "main.tf",
+						Start:    hcl.Pos{Line: 2, Column: 15},
+						End:      hcl.Pos{Line: 2, Column: 24},
+					},
+				},
+			},
+		},
+		{
+			Name: "variable with map of object with any",
+			Content: heredoc.Doc(`
+				variable "test" {
+				  type = map(object({
+					nested = any
+				  }))
+				}
+			`),
+			Expected: helper.Issues{
+				{
+					Rule:    NewStyleGuideTypeVariablesExceptAnyRule(),
+					Message: "Using 'any' as variable type should be avoided",
+					Range: hcl.Range{
+						Filename: "main.tf",
+						Start:    hcl.Pos{Line: 3, Column: 11},
+						End:      hcl.Pos{Line: 3, Column: 14},
+					},
+				},
+			},
+		},
+		{
 			Name: "variable with tuple without any",
 			Content: heredoc.Doc(`
 				variable "test" {
